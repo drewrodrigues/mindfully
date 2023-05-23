@@ -1,0 +1,101 @@
+:root {
+  --blue-primary: #009de0;
+  --blue-light: #3ac4ff;
+  --green-primary: #50d200;
+  --green-light: #ccff3a;
+  --border-radius-large: 25px;
+  --gradient-blue: linear-gradient(
+    to bottom,
+    var(--blue-light),
+    var(--blue-primary)
+  );
+  --gradient-green: linear-gradient(
+    to bottom,
+    var(--green-light),
+    var(--green-primary)
+  );
+  --shadow-primary: 0 4px 4px rgba(0, 0, 0, 0.25);
+  --shadow-hover: 0 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+/*
+  ? What's the default inherit for fonts? 
+  ? How should we set them?
+  ? Is it best to do box-sizing on the `*` element or?
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--blue-primary);
+}
+
+.box-shadow {
+  box-shadow: var(--shadow-primary);
+}
+
+.button {
+  border-radius: var(--border-radius-large);
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  height: 50px;
+  padding: 0 70px;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.box-shadow--hover {
+  transition: 150ms box-shadow ease-out;
+}
+
+.box-shadow--hover:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.button-blue {
+  background: var(--gradient-blue);
+}
+
+.button-green {
+  background: var(--gradient-green);
+}
+
+.text-white {
+  color: white;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.logo {
+  margin-top: 300px;
+  font-size: 42px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.reflection-input {
+  border: none;
+  border-radius: var(--border-radius-large);
+  height: 300px;
+  background: white;
+  resize: none;
+  min-width: 550px;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 -10px;
+}

@@ -1,22 +1,22 @@
 <html>
 
 <head>
-  <style>
-    #mindfully-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: white;
-      z-index: 999;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="../styles/mindfulness-check.css" />
 </head>
 
 <body>
-  <main id="mindfully-container">
-    <h1>Mindfully</h1>
+  <main class="container">
+    <h1 class="text-white logo">Mindfully</h1>
+
+    <form>
+      <textarea type="text" placeholder="Write about why you want to use view this website right now..."
+        class="reflection-input box-shadow"></textarea>
+
+      <footer class="button-container">
+        <button class="button text-white bold button-green box-shadow box-shadow--hover">Resist</button>
+        <button class="button text-white bold button-blue box-shadow box-shadow--hover">Continue</button>
+      </footer>
+    </form>
   </main>
 </body>
 
