@@ -16,7 +16,10 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["src/views/mindfulness-check.html"],
+      "resources": [
+        "src/views/mindfulness-check.html",
+        "src/styles/mindfulness-check.css"
+      ],
       "matches": ["https://*/*"]
     }
   ],
