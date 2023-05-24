@@ -1,0 +1,19 @@
+:root {
+  --blue-primary: #009de0;
+  --blue-light: #3ac4ff;
+  --green-primary: #50d200;
+  --green-light: #ccff3a;
+  --border-radius-large: 25px;
+  --gradient-blue: linear-gradient(
+    to bottom,
+    var(--blue-light),
+    var(--blue-primary)
+  );
+  --gradient-green: linear-gradient(
+    to bottom,
+    var(--green-light),
+    var(--green-primary)
+  );
+  --shadow-primary: 0 4px 4px rgba(0, 0, 0, 0.25);
+  --shadow-hover: 0 2px 2px rgba(0, 0, 0, 0.15);
+}

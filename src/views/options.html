@@ -2,24 +2,32 @@
 <html>
 
 <head>
-  <title>My Test Extension Options</title>
+  <title>Mindfully - Options</title>
+  <link rel="stylesheet" href="../styles/reset.css" type="text/css" />
+  <link rel="stylesheet" href="../styles/variables.css" type="text/css" />
+  <link rel="stylesheet" href="../styles/options.css" type="text/css" />
 </head>
 
 <body>
-  <select id="color">
-    <option value="red">red</option>
-    <option value="green">green</option>
-    <option value="blue">blue</option>
-    <option value="yellow">yellow</option>
-  </select>
+  <main class="option-container">
+    <header class="header">
+      <h1 class="logo">Mindfully</h1>
+      <h2>Options</h2>
+    </header>
 
-  <label>
-    <input type="checkbox" id="like" />
-    I like colors.
-  </label>
+    <h3 class="label">Websites</h3>
 
-  <div id="status"></div>
-  <button id="save">Save</button>
+    <div class="bubble">reddit.com</div>
+    <div class="bubble">gmail</div>
+    <div class="bubble">mail.google.com</div>
+    <div class="bubble">facebook</div>
+    <div class="bubble">linkedin</div>
+
+    <div class="website-add-container bubble">
+      <input type="text" placeholder="Add a new website here..." class="website-input" />
+      <button class="website-button">Add</button>
+    </div>
+  </main>
 
   <script src="options.js"></script>
 </body>
