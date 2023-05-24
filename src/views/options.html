@@ -17,19 +17,16 @@
 
     <h3 class="label">Websites</h3>
 
-    <div class="bubble">reddit.com</div>
-    <div class="bubble">gmail</div>
-    <div class="bubble">mail.google.com</div>
-    <div class="bubble">facebook</div>
-    <div class="bubble">linkedin</div>
-
-    <div class="website-add-container bubble">
-      <input type="text" placeholder="Add a new website here..." class="website-input" />
-      <button class="website-button">Add</button>
+    <div class="website-container" data-id="websites">
     </div>
+
+    <form class="website-add-container bubble" data-id="website-addition-form">
+      <input type="text" placeholder="Add a new website here..." class="website-input" name="website-matcher" />
+      <button class="website-button">Add</button>
+    </form>
   </main>
 
-  <script src="options.js"></script>
+  <script src="../scripts/options.js"></script>
 </body>
 
 </html>
