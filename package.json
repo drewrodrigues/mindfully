@@ -1,5 +1,19 @@
 {
+  "scripts": {
+    "build": "webpack ./src/scripts/serviceWorker.js",
+    "lint": "npx eslint ./src/**/*.js",
+    "validate": ""
+  },
   "devDependencies": {
-    "chrome-types": "^0.1.196"
+    "@types/chrome": "^0.0.236",
+    "chrome-types": "^0.1.196",
+    "eslint": "^8.41.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "typescript": "^5.0.4",
+    "webpack": "^5.83.1",
+    "webpack-cli": "^5.1.1"
   }
 }
