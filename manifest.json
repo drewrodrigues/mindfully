@@ -16,22 +16,13 @@
       "matches": ["https://*/*"]
     }
   ],
-  "declarative_net_request": {
-    "rule_resources": [
-      {
-        "id": "ruleset_1",
-        "enabled": true,
-        "path": "src/rules.json"
-      }
-    ]
-  },
   "permissions": [
     "declarativeNetRequest",
     "declarativeNetRequestFeedback",
     "storage"
   ],
   "background": {
-    "service_worker": "src/scripts/serviceWorker.js"
+    "service_worker": "dist/serviceWorker.js"
   },
   "host_permissions": ["https://*/*"],
   "options_page": "src/views/options.html"
