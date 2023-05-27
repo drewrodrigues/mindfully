@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "webpack ./src/scripts/serviceWorker.js",
+    "build": "webpack",
     "format": "prettier",
     "lint": "eslint ./src/**/*.js",
     "watch": "webpack watch --progress",
