@@ -9,4 +9,17 @@ module.exports = {
     filename: '[name].js',
     path: __dirname + '/dist',
   },
+  // typescript
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.js', '.ts'],
+  }
 }
