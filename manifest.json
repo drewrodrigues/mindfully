@@ -7,13 +7,6 @@
     "default_popup": "src/views/default.html",
     "default_icon": "src/assets/mindfully.png"
   },
-  "content_scripts": [
-    {
-      "matches": ["https://*/*"],
-      "css": ["src/styles/mindfulness-check.css"],
-      "js": ["src/scripts/mindfulness-check.js"]
-    }
-  ],
   "web_accessible_resources": [
     {
       "resources": [
