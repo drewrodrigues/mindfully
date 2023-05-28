@@ -4,8 +4,6 @@ const confettiCanvas = document.createElement('canvas')
 confettiCanvas.style.position = 'fixed'
 document.body.appendChild(confettiCanvas)
 
-console.log(confetti)
-
 confetti.Promise = () => {
   console.log('confetti done')
 }

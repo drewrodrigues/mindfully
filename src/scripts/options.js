@@ -1,3 +1,11 @@
+// TODO: show rule ids on options
+// TODO: show delete button
+
+// TODO: show saved rules and which are enabled ('dynamic rules')
+// TODO: allow enable, disabling rules
+
+// TODO: reload options on re-mount
+
 const { getDynamicRules, addDynamicRule } = require('./helpers/storage')
 
 const WEBSITE_MATCHER = 'website-matcher'

@@ -14,6 +14,7 @@
     var(--green-light),
     var(--green-primary)
   );
+  --gradient-red: linear-gradient(red, #a70000);
   --shadow-primary: 0 4px 4px rgba(0, 0, 0, 0.25);
   --shadow-hover: 0 2px 2px rgba(0, 0, 0, 0.15);
 }

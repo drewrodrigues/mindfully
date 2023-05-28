@@ -15,7 +15,7 @@ body {
 .button {
   border-radius: var(--border-radius-large);
   border: none;
-  font-size: 22px;
+  font-size: 16px;
   cursor: pointer;
   height: 50px;
   padding: 0 70px;
@@ -33,6 +33,10 @@ body {
 
 .button-blue {
   background: var(--gradient-blue);
+}
+
+.button-red {
+  background: var(--gradient-red);
 }
 
 .button-green {

@@ -5,6 +5,8 @@ const {
   addDynamicRules,
 } = require('./helpers/storage')
 
+// FIXME: not reloading with dynamic rules
+
 console.log('Service worker registered')
 ;(async () => {
   try {
