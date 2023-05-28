@@ -4,7 +4,6 @@
   "description": "Be mindful about your web usage",
   "version": "0.1",
   "action": {
-    "default_popup": "src/views/default.html",
     "default_icon": "src/assets/mindfully.png"
   },
   "web_accessible_resources": [
