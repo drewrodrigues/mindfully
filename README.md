@@ -1,3 +1,25 @@
+# Features
+
+### Mindfulness Page
+
+![](readme/mindfulness-check.png)
+
+### Rule Disable Allowed After Countdown
+
+![](readme/disable-rule-allowed.png)
+
+### Resist Award Page
+
+![](readme/resisting-award-page.png)
+
+### Random Background Images on Mindfulness Page
+
+![](readme/different-background.png)
+
+### Rule Matching
+
+![](readme/website-matching.png)
+
 # Setup
 
 1. `npm install`
