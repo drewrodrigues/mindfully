@@ -78,4 +78,16 @@ function setCountdownUntilDisableButtonEnabled() {
   const interval = setInterval(tick, 1_000)
 }
 
+function setRandomBackgroundImage() {
+  const BACKGROUND_COUNT = 11
+  const randomNumber = parseInt(Math.random() * BACKGROUND_COUNT + 1)
+  const image = chrome.runtime.getURL(
+    `./src/assets/background${randomNumber}.jpg`
+  )
+
+  document.body.style.background = `url("${image}")`
+  document.body.style.backgroundSize = 'cover'
+}
+
 setCountdownUntilDisableButtonEnabled()
+setRandomBackgroundImage()
