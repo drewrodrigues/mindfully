@@ -1,32 +1,20 @@
-# Features
+# 🧠 Mindfully
 
-### Mindfulness Page
+> Be mindful about your web usage
 
-![](readme/mindfulness-check.png)
+## Features
 
-### Rule Disable Allowed After Countdown
+|           Mindfulness Page           | Rule Disable Allowed After Countdown |
+| :----------------------------------: | :----------------------------------: |
+|  ![](readme/mindfulness-check.png)   | ![](readme/disable-rule-allowed.png) |
+|          Resist Award Page           |       Random Background Images       |
+| ![](readme/resisting-award-page.png) | ![](readme/different-background.png) |
+|            Rule Matching             |
+|   ![](readme/website-matching.png)   |
 
-![](readme/disable-rule-allowed.png)
-
-### Resist Award Page
-
-![](readme/resisting-award-page.png)
-
-### Random Background Images on Mindfulness Page
-
-![](readme/different-background.png)
-
-### Rule Matching
-
-![](readme/website-matching.png)
-
-# Setup
+## Setup
 
 1. `npm install`
 2. `npm watch` to rebuild Javascript/Typescript into dist directory
 3. Load unpacked extension in `chrome://extensions`
 4. When some files change, you may need to do a manual reload in the chrome extensions UI
-
-# Permissions
-
-- `activeTab` so we can get the tabId to check which rules are matched. Then, we can disable a rule temporarily. To then be re-enabled after viewing a page that matches that rule later.
