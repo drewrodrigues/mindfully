@@ -1,5 +1,5 @@
 body {
-  background-color: #2d2d2d;
+  background-color: var(--blue-primary);
 }
 
 .header {
@@ -37,8 +37,7 @@ body {
 }
 
 .website-add-container {
-  border: 1px solid var(--green-light);
-  background: none;
+  background: white;
   padding: 0;
 }
 
