@@ -1,10 +1,11 @@
 {
   "scripts": {
     "build": "webpack",
-    "format": "prettier",
+    "format": "prettier --write 'src/**/*.js' 'src/**/*.ts'",
+    "format:check": "prettier --check 'src/**/*.js' 'src/**/*.ts'",
     "lint": "eslint ./src/**/*.js",
     "watch": "webpack watch --progress",
-    "validate": "lint && format"
+    "validate": "npm run lint && npm run format:check"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.236",
