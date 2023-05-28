@@ -1,6 +1,7 @@
 <html>
 
 <head>
+  <title>Mindfully</title>
   <link rel="stylesheet" href="../styles/reset.css">
   <link rel="stylesheet" href="../styles/variables.css">
   <link rel="stylesheet" type="text/css" href="../styles/mindfulness-check.css" />
@@ -8,6 +9,11 @@
 
 <body>
   <main class="container">
+    <button class="options-button text-white" data-id="options-button">
+      <img src="../assets/options_icon.svg" />
+      <span>Options</span>
+    </button>
+
     <h1 class="text-white logo bold">Mindfully</h1>
 
     <form>
@@ -15,7 +21,8 @@
         class="reflection-input box-shadow"></textarea>
 
       <footer class="button-container">
-        <button class="button text-white bold button-blue box-shadow box-shadow--hover" data-id="disable-button">Disable
+        <button class="button text-white bold button-blue box-shadow box-shadow--hover" data-id="disable-button"
+          disabled="true">Disable
           Rule</button>
         <button class="button text-white bold button-green box-shadow box-shadow--hover"
           data-id="resist-button">Resist</button>

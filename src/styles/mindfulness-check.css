@@ -6,6 +6,9 @@
 
 body {
   background: var(--blue-primary);
+  position: relative;
+  padding: 0;
+  margin: 0;
 }
 
 .box-shadow {
@@ -18,7 +21,6 @@ body {
   font-size: 16px;
   cursor: pointer;
   height: 50px;
-  padding: 0 70px;
   flex: 1;
   margin: 0 10px;
 }
@@ -52,7 +54,7 @@ body {
 }
 
 .logo {
-  margin-top: 300px;
+  margin-bottom: 50px;
   font-size: 42px;
 }
 
@@ -61,6 +63,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .reflection-input {
@@ -78,4 +81,34 @@ body {
   display: flex;
   justify-content: space-evenly;
   margin: 0 -10px;
+}
+
+.options-button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 15px 20px;
+  cursor: pointer;
+  background: none;
+  display: flex;
+  align-items: center;
+  transition: background 250ms;
+  border-radius: var(--border-radius-large);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.options-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.options-button img {
+  height: 16px;
+  width: 16px;
+  margin-right: 5px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  /* background: #222; */
+  color: white;
 }

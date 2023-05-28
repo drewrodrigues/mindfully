@@ -7,6 +7,18 @@ body {
   justify-content: space-between;
   color: white;
   align-items: center;
+  margin-bottom: 50px;
+}
+
+.header img {
+  height: 16px;
+  width: 16px;
+  margin-right: 5px;
+}
+
+.header aside {
+  display: flex;
+  align-items: center;
 }
 
 .logo {
@@ -17,6 +29,7 @@ body {
 .label {
   color: white;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .option-container {
@@ -46,8 +59,11 @@ body {
   height: 100%;
   background: none;
   width: 100%;
-  color: var(--green-light);
   font-size: 16px;
+}
+
+.website-input::placeholder {
+  color: var(--gray-light);
 }
 
 .website-input:active,
