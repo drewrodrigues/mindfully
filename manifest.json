@@ -11,12 +11,14 @@
     {
       "resources": [
         "src/views/mindfulness-check.html",
-        "src/styles/mindfulness-check.css"
+        "src/styles/mindfulness-check.css",
+        "src/views/resisted.html"
       ],
       "matches": ["https://*/*"]
     }
   ],
   "permissions": [
+    "activeTab",
     "declarativeNetRequest",
     "declarativeNetRequestFeedback",
     "storage"
