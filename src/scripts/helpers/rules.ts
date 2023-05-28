@@ -1,10 +1,10 @@
-export async function disableDynamicRule(id: string) {
+module.exports = async function disableDynamicRule(id: string) {
   await chrome.declarativeNetRequest.updateEnabledRulesets({
     disableRulesetIds: [id],
   })
 }
 
-export async function enableDynamicRule(id: string) {
+module.exports = async function enableDynamicRule(id: string) {
   await chrome.declarativeNetRequest.updateEnabledRulesets({
     enableRulesetIds: [id],
   })
