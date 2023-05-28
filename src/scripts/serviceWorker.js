@@ -31,11 +31,3 @@ console.log('Service worker registered')
     console.error(e)
   }
 })()
-
-// chrome.webRequest.onBeforeRequest.addListener(
-//   (details) => {
-//     console.log("onBeforeRequest", details);
-//   },
-//   { urls: ["<all_urls>"] },
-//   ["blocking"]
-// );
