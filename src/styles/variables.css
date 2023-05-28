@@ -4,6 +4,7 @@
   --green-primary: #50d200;
   --green-light: #ccff3a;
   --border-radius-large: 25px;
+  --gray-light: #ccc;
   --gradient-blue: linear-gradient(
     to bottom,
     var(--blue-light),
