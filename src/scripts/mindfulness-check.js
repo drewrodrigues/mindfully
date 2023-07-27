@@ -1,23 +1,8 @@
 const { goToResistedPage, goToOptionsPage } = require('./helpers/navigation')
-// const rules = require('./helpers/rules.ts')
 
-// TODO: add countdown until you can disable a rule (15 seconds?)
-// TODO: make rule disablement temporary
-
-document
-  .querySelector("[data-id='resist-button']")
-  .addEventListener('click', onClickResist)
-
-const DISABLE_BUTTON = document.querySelector("[data-id='disable-button']")
-DISABLE_BUTTON.addEventListener('click', onClickDisable)
-
-document
-  .querySelector("[data-id='options-button']")
-  .addEventListener('click', onOptionsPageClick)
+const ONE_SECOND = 1_000
 
 function onClickResist(e) {
-  // TODO: redirect to great job resisting page
-  // TODO: store information about resisting
   e.preventDefault()
   goToResistedPage()
 }
@@ -53,6 +38,7 @@ async function onClickDisable(e) {
   //   })
   // }, 10_000)
 
+  // TODO: Redirect to a page that says the rule has been disabled (or temporarily)
   chrome.tabs.remove(tab.id)
 }
 
@@ -75,7 +61,7 @@ function setCountdownUntilDisableButtonEnabled() {
   }
 
   tick()
-  const interval = setInterval(tick, 1_000)
+  const interval = setInterval(tick, ONE_SECOND)
 }
 
 function setRandomBackgroundImage() {
@@ -89,5 +75,39 @@ function setRandomBackgroundImage() {
   document.body.style.backgroundSize = 'cover'
 }
 
+function keepCharacterCountUpdated(e) {
+  if (!e) return // ? input is triggered on mount?
+  const characterCount = e.target.value.length
+
+  // TODO: make this configurable
+  if (characterCount >= 120) {
+    CHARACTER_COUNT_MET.style.display = 'block'
+    CHARACTER_COUNT_NOT_MET.style.display = 'none'
+    CHARAC_
+  } else {
+    CHARACTER_COUNT_NOT_MET.style.display = 'block'
+    CHARACTER_COUNT_MET.style.display = 'none'
+    CHARACTER_COUNT.textContent = characterCount
+  }
+}
+
+const CHARACTER_COUNT_MET = document.querySelector(
+  '[data-id="character-count-met"]'
+)
+const CHARACTER_COUNT_NOT_MET = document.querySelector(
+  '[data-id="character-count-not-met"]'
+)
+const CHARACTER_COUNT = document.querySelector('[data-id="characterCount"]')
+const MESSAGE_INPUT = document.querySelector('[data-id="messageInput"]')
+const RESIST_BUTTON = document.querySelector("[data-id='resist-button']")
+const DISABLE_BUTTON = document.querySelector("[data-id='disable-button']")
+const OPTIONS_BUTTON = document.querySelector("[data-id='options-button']")
+
+RESIST_BUTTON.addEventListener('click', onClickResist)
+DISABLE_BUTTON.addEventListener('click', onClickDisable)
+OPTIONS_BUTTON.addEventListener('click', onOptionsPageClick)
+MESSAGE_INPUT.addEventListener('input', keepCharacterCountUpdated)
+
+keepCharacterCountUpdated()
 setCountdownUntilDisableButtonEnabled()
 setRandomBackgroundImage()

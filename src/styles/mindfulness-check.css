@@ -60,6 +60,14 @@ body {
   left: 20px;
 }
 
+.character-container {
+  margin-bottom: 20px;
+  color: white;
+  font-weight: 700;
+  font-family: monospace;
+  text-align: center;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -77,6 +85,11 @@ body {
   min-width: 550px;
   padding: 20px;
   margin-bottom: 40px;
+  line-height: 1.5;
+}
+
+.character-count-met {
+  display: none;
 }
 
 .button-container {

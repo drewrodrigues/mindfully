@@ -5,7 +5,6 @@
   <link rel="stylesheet" href="../styles/reset.css">
   <link rel="stylesheet" href="../styles/variables.css">
   <link rel="stylesheet" type="text/css" href="../styles/mindfulness-check.css" />
-
 </head>
 
 <body>
@@ -17,9 +16,19 @@
 
     <h1 class="text-white logo bold">Mindfully</h1>
 
+    <!-- TODO: instead, have it be, "120 Characters Remaining Before Disabling" -->
+
+    <div data-id="character-container" class="character-container">
+      <p data-id="character-count-met" class="character-count-met">Character Requirement Met</p>
+
+      <p data-id="character-count-not-met">
+        <span data-id="characterCount">0</span> out of <span data-id="requiredCharacterCount">120</span> characters</>
+      </p>
+    </div>
+
     <form>
       <textarea type="text" placeholder="Write about why you want to use view this website right now..."
-        class="reflection-input box-shadow"></textarea>
+        class="reflection-input box-shadow" data-id="messageInput"></textarea>
 
       <footer class="button-container">
         <button class="button text-white bold button-blue box-shadow box-shadow--hover" data-id="disable-button"
