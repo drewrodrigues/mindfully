@@ -21,7 +21,10 @@
 
 ## Todo
 
-- [ ] Add rule deletion
+- [x] Add rule deletion
+- [ ] Require configurable minimum character explanation to temporarily disable rule
+- [ ] Store explanations
+- [ ] Track rule bypasses
 - [ ] Fix reloading plugin not picking up dynamically stored rules
 - [ ] Add Storybook to display pages
 - [ ] Migrate all files to TS
