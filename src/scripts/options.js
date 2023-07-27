@@ -6,7 +6,11 @@
 
 // TODO: reload options on re-mount
 
-const { getDynamicRules, addDynamicRule } = require('./helpers/storage')
+const {
+  getDynamicRules,
+  addDynamicRule,
+  deleteRules,
+} = require('./helpers/storage')
 
 const WEBSITE_MATCHER = 'website-matcher'
 
@@ -42,6 +46,7 @@ async function renderWebsiteMatchesFromStorage() {
   for (const rule of rules) {
     elementsToAdd.unshift(RuleBubble(rule))
   }
+  websiteContainer.innerHTML = null
   websiteContainer.append(...elementsToAdd)
 }
 
@@ -50,15 +55,21 @@ function RuleBubble(rule) {
   websiteElement.textContent = rule.condition.urlFilter
   websiteElement.className = 'bubble'
 
-  websiteElement.appendChild(DeleteButton())
+  websiteElement.appendChild(
+    DeleteButton(() => {
+      deleteRules([rule])
+      renderWebsiteMatchesFromStorage()
+    })
+  )
 
   return websiteElement
 }
 
-function DeleteButton() {
+function DeleteButton(onClick) {
   const deleteButtonElement = document.createElement('button')
   deleteButtonElement.textContent = 'X' // TODO: change me to an icon
   deleteButtonElement.className = 'bubble-delete-button'
+  deleteButtonElement.addEventListener('click', onClick)
   return deleteButtonElement
 }
 
