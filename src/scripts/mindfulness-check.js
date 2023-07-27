@@ -1,3 +1,4 @@
+const { getElement } = require('./helpers/elements')
 const { goToResistedPage, goToOptionsPage } = require('./helpers/navigation')
 
 const ONE_SECOND = 1_000
@@ -91,17 +92,16 @@ function keepCharacterCountUpdated(e) {
   }
 }
 
-const CHARACTER_COUNT_MET = document.querySelector(
-  '[data-id="character-count-met"]'
-)
-const CHARACTER_COUNT_NOT_MET = document.querySelector(
+// TODO: split up some of these modules into submodules within a directory based on the page
+const CHARACTER_COUNT_MET = getElement('[data-id="character-count-met"]')
+const CHARACTER_COUNT_NOT_MET = getElement(
   '[data-id="character-count-not-met"]'
 )
-const CHARACTER_COUNT = document.querySelector('[data-id="characterCount"]')
-const MESSAGE_INPUT = document.querySelector('[data-id="messageInput"]')
-const RESIST_BUTTON = document.querySelector("[data-id='resist-button']")
-const DISABLE_BUTTON = document.querySelector("[data-id='disable-button']")
-const OPTIONS_BUTTON = document.querySelector("[data-id='options-button']")
+const CHARACTER_COUNT = getElement('characterCount')
+const MESSAGE_INPUT = getElement('messageInput')
+const RESIST_BUTTON = getElement('resist-button')
+const DISABLE_BUTTON = getElement('disable-button')
+const OPTIONS_BUTTON = getElement('options-button')
 
 RESIST_BUTTON.addEventListener('click', onClickResist)
 DISABLE_BUTTON.addEventListener('click', onClickDisable)
