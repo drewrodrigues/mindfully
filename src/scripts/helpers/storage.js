@@ -1,5 +1,18 @@
+// -----------------------------------------------------------------------------
+// Dynamic rules are the only way we can set rules to redirect in manfiest 3+.
+// But, dynamic rules must be set at runtime or saved to a file and then they
+// will be automatically loaded. Since, we want users to dynamically add and
+// remove rules, we save them to storage, and then upon load, we push them into
+// dynamic rules. Thus, we have to keep the 2 in sync.
+// -----------------------------------------------------------------------------
+
+// TODO: rename this to rules
+
 const STORAGE_RULES = 'rules'
 
+// * For keeping track of the next dynamic ID we can use. Chrome doesn't
+// * automatically set this value, so we must first read from storage and then
+// * use +1 what we find.
 let maxDynamicRuleId = 0
 
 export async function getSavedRules() {
