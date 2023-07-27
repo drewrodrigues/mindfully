@@ -49,7 +49,17 @@ function RuleBubble(rule) {
   const websiteElement = document.createElement('div')
   websiteElement.textContent = rule.condition.urlFilter
   websiteElement.className = 'bubble'
+
+  websiteElement.appendChild(DeleteButton())
+
   return websiteElement
+}
+
+function DeleteButton() {
+  const deleteButtonElement = document.createElement('button')
+  deleteButtonElement.textContent = 'X' // TODO: change me to an icon
+  deleteButtonElement.className = 'bubble-delete-button'
+  return deleteButtonElement
 }
 
 renderWebsiteMatchesFromStorage()

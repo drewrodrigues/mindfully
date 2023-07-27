@@ -44,9 +44,26 @@ body {
   border-radius: var(--border-radius-large);
   display: flex;
   align-items: center;
-  padding: 0 20px;
+  padding-left: 20px;
   background-color: white;
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bubble-delete-button {
+  background: none;
+  outline: none;
+  border: none;
+  color: var(--gray-light);
+  cursor: pointer;
+  height: 100%;
+  padding: 0 20px;
+  transition: color 250ms ease-in-out;
+}
+
+.bubble-delete-button:hover {
+  color: var(--gray-dark);
 }
 
 .website-add-container {
