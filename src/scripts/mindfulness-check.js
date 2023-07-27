@@ -47,7 +47,7 @@ function onOptionsPageClick() {
 }
 
 function setCountdownUntilDisableButtonEnabled() {
-  let secondsLeft = 15
+  let secondsLeft = 60
 
   function tick() {
     if (secondsLeft === 0) {
