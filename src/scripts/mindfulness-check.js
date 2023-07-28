@@ -1,11 +1,14 @@
 const { getElement } = require('./helpers/elements')
 const { goToResistedPage, goToOptionsPage } = require('./helpers/navigation')
+const { getNotes, saveNote } = require('./helpers/notes')
 
 const ONE_SECOND = 1_000
 
 function onClickResist(e) {
   e.preventDefault()
-  goToResistedPage()
+  // If there's a note, we'll save it
+  saveNote(NOTE_INPUT.value)
+  // goToResistedPage()
 }
 
 async function onClickDisable(e) {
@@ -84,7 +87,6 @@ function keepCharacterCountUpdated(e) {
   if (characterCount >= 120) {
     CHARACTER_COUNT_MET.style.display = 'block'
     CHARACTER_COUNT_NOT_MET.style.display = 'none'
-    CHARAC_
   } else {
     CHARACTER_COUNT_NOT_MET.style.display = 'block'
     CHARACTER_COUNT_MET.style.display = 'none'
@@ -92,22 +94,34 @@ function keepCharacterCountUpdated(e) {
   }
 }
 
+async function renderNotesFromStorage() {
+  const notes = await getNotes()
+
+  console.log('rendering notes')
+  console.log(notes)
+  // for (const note in notes) {
+
+  // }
+
+  // NOTE_CONTAINER.append
+}
+
 // TODO: split up some of these modules into submodules within a directory based on the page
-const CHARACTER_COUNT_MET = getElement('[data-id="character-count-met"]')
-const CHARACTER_COUNT_NOT_MET = getElement(
-  '[data-id="character-count-not-met"]'
-)
+const CHARACTER_COUNT_MET = getElement('character-count-met')
+const CHARACTER_COUNT_NOT_MET = getElement('character-count-not-met')
 const CHARACTER_COUNT = getElement('characterCount')
-const MESSAGE_INPUT = getElement('messageInput')
 const RESIST_BUTTON = getElement('resist-button')
+const NOTE_INPUT = getElement('noteInput')
 const DISABLE_BUTTON = getElement('disable-button')
 const OPTIONS_BUTTON = getElement('options-button')
+const NOTE_CONTAINER = getElement('noteContainer')
 
 RESIST_BUTTON.addEventListener('click', onClickResist)
 DISABLE_BUTTON.addEventListener('click', onClickDisable)
 OPTIONS_BUTTON.addEventListener('click', onOptionsPageClick)
-MESSAGE_INPUT.addEventListener('input', keepCharacterCountUpdated)
+NOTE_INPUT.addEventListener('input', keepCharacterCountUpdated)
 
 keepCharacterCountUpdated()
 setCountdownUntilDisableButtonEnabled()
 setRandomBackgroundImage()
+renderNotesFromStorage()

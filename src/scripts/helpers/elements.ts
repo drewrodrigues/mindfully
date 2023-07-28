@@ -1,7 +1,8 @@
 // TODO: be consistent with casing
+// TODO: add some validation to check that these are valid -- otherwise, crash it
 export type ElementSelector =
   | 'characterCount'
-  | 'messageInput'
+  | 'noteInput'
   | 'resist-button'
   | 'disable-button'
   | 'options-button'
@@ -9,5 +10,5 @@ export type ElementSelector =
   | 'character-count-not-met'
 
 export function getElement(selector: ElementSelector) {
-  return document.querySelector(selector)
+  return document.querySelector(`[data-id="${selector}"]`)
 }

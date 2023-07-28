@@ -22,6 +22,7 @@ const websiteMatcherInput = document.querySelector(
   "[data-id='website-matcher-input']"
 )
 
+// TODO: type me BISH
 let rules = null
 
 websiteAdditionForm.addEventListener('submit', (e) => {
@@ -30,6 +31,7 @@ websiteAdditionForm.addEventListener('submit', (e) => {
   const ruleMatcher = formData.get(WEBSITE_MATCHER).toLocaleLowerCase()
   const newRules = [ruleMatcher, ...rules]
 
+  // TODO: pull this out into Storage.ts (all storage interactions should be pass over there)
   chrome.storage.sync.set({ rules: newRules }).then(async () => {
     const rule = await addDynamicRule(ruleMatcher)
     websiteContainer.prepend(RuleBubble(rule))
