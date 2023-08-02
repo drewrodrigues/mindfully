@@ -1,17 +1,19 @@
+import { INote } from './helpers/notes'
+
 const { getElement } = require('./helpers/elements')
 const { goToResistedPage, goToOptionsPage } = require('./helpers/navigation')
-const { getNotes, saveNote } = require('./helpers/notes')
+const { getNotes, saveNote, deleteNote } = require('./helpers/notes')
 
 const ONE_SECOND = 1_000
 
-function onClickResist(e) {
+function onClickResist(e: Event) {
   e.preventDefault()
   // If there's a note, we'll save it
   saveNote(NOTE_INPUT.value)
-  // goToResistedPage()
+  goToResistedPage()
 }
 
-async function onClickDisable(e) {
+async function onClickDisable(e: Event) {
   e.preventDefault()
 
   const tab = await chrome.tabs.getCurrent()
@@ -70,7 +72,7 @@ function setCountdownUntilDisableButtonEnabled() {
 
 function setRandomBackgroundImage() {
   const BACKGROUND_COUNT = 11
-  const randomNumber = parseInt(Math.random() * BACKGROUND_COUNT + 1)
+  const randomNumber = Math.random() * BACKGROUND_COUNT + 1
   const image = chrome.runtime.getURL(
     `./src/assets/background${randomNumber}.jpg`
   )
@@ -79,37 +81,64 @@ function setRandomBackgroundImage() {
   document.body.style.backgroundSize = 'cover'
 }
 
-function keepCharacterCountUpdated(e) {
-  if (!e) return // ? input is triggered on mount?
-  const characterCount = e.target.value.length
+async function renderNotesFromStorage() {
+  const notes = await getNotes()
+  NOTE_CONTAINER.innerHTML = null
 
-  // TODO: make this configurable
-  if (characterCount >= 120) {
-    CHARACTER_COUNT_MET.style.display = 'block'
-    CHARACTER_COUNT_NOT_MET.style.display = 'none'
+  if (notes.length) {
+    const noteElements = []
+
+    for (const note of notes) {
+      const noteElement = Note(note)
+
+      noteElements.unshift(noteElement)
+    }
+
+    NOTE_CONTAINER.append(...noteElements)
   } else {
-    CHARACTER_COUNT_NOT_MET.style.display = 'block'
-    CHARACTER_COUNT_MET.style.display = 'none'
-    CHARACTER_COUNT.textContent = characterCount
+    // ? Can we abstract out components a bit better? Element('elementName', options)
+    const emptyStateText = document.createElement('p')
+    emptyStateText.className = 'activity-empty-state'
+    emptyStateText.textContent = 'No activity yet...'
+    NOTE_CONTAINER.innerHTML = null
+    NOTE_CONTAINER.append(emptyStateText)
   }
 }
 
-async function renderNotesFromStorage() {
-  const notes = await getNotes()
+// TODO: a way to render these raw like in story book?
+function Note(note: INote) {
+  const noteElement = document.createElement('div')
+  noteElement.classList.add('note')
 
-  console.log('rendering notes')
-  console.log(notes)
-  // for (const note in notes) {
+  const footerElement = document.createElement('footer')
+  const indicator = document.createElement('div')
+  indicator.classList.add('note-indicator')
+  footerElement.appendChild(indicator)
+  const contentElement = document.createElement('p')
+  contentElement.textContent = note.content
+  const time = document.createElement('span')
+  time.textContent = note.date.toLocaleString()
+  time.classList.add('note-time')
+  if (note.content) {
+    noteElement.appendChild(contentElement)
+  }
+  footerElement.appendChild(time)
+  noteElement.appendChild(footerElement)
 
-  // }
+  const deleteElement = document.createElement('button')
+  deleteElement.classList.add('note-delete')
+  deleteElement.textContent = 'X'
+  deleteElement.addEventListener('click', async (e) => {
+    e.preventDefault()
+    await deleteNote(note.id)
+    renderNotesFromStorage()
+  })
+  noteElement.appendChild(deleteElement)
 
-  // NOTE_CONTAINER.append
+  return noteElement
 }
 
 // TODO: split up some of these modules into submodules within a directory based on the page
-const CHARACTER_COUNT_MET = getElement('character-count-met')
-const CHARACTER_COUNT_NOT_MET = getElement('character-count-not-met')
-const CHARACTER_COUNT = getElement('characterCount')
 const RESIST_BUTTON = getElement('resist-button')
 const NOTE_INPUT = getElement('noteInput')
 const DISABLE_BUTTON = getElement('disable-button')
@@ -119,9 +148,7 @@ const NOTE_CONTAINER = getElement('noteContainer')
 RESIST_BUTTON.addEventListener('click', onClickResist)
 DISABLE_BUTTON.addEventListener('click', onClickDisable)
 OPTIONS_BUTTON.addEventListener('click', onOptionsPageClick)
-NOTE_INPUT.addEventListener('input', keepCharacterCountUpdated)
 
-keepCharacterCountUpdated()
 setCountdownUntilDisableButtonEnabled()
-setRandomBackgroundImage()
+// setRandomBackgroundImage()
 renderNotesFromStorage()
