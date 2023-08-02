@@ -2,7 +2,7 @@ module.exports = {
   mode: 'development',
   devtool: 'cheap-module-source-map',
   entry: {
-    mindfulnessCheck: './src/scripts/mindfulness-check.js',
+    mindfulnessCheck: './src/scripts/mindfulness-check.ts',
     options: './src/scripts/options.js',
     resisted: './src/scripts/resisted.js',
     serviceWorker: './src/scripts/serviceWorker.js',
