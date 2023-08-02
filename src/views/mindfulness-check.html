@@ -8,27 +8,22 @@
 </head>
 
 <body>
-  <main class="container">
-    <button class="options-button text-white" data-id="options-button">
+  <header class="header">
+    <h1 class="logo bold">Mindfully</h1>
+
+    <button class="options-button" data-id="options-button">
       <img src="../assets/options_icon.svg" />
       <span>Options</span>
     </button>
+  </header>
 
-    <h1 class="text-white logo bold">Mindfully</h1>
+  <!-- TODO: rotate this with various quotes -- maybe the user can also add them -->
+  <!-- <p>“With self-discipline most anything is possible.” --Theodore Roosevelt</p> -->
 
-    <!-- TODO: instead, have it be, "120 Characters Remaining Before Disabling" -->
-
-    <div data-id="character-container" class="character-container">
-      <p data-id="character-count-met" class="character-count-met">Character Requirement Met</p>
-
-      <p data-id="character-count-not-met">
-        <span data-id="characterCount">0</span> out of <span data-id="requiredCharacterCount">120</span> characters</>
-      </p>
-    </div>
-
+  <main class="container">
     <form>
       <textarea type="text" placeholder="Write about why you want to use view this website right now..."
-        class="reflection-input box-shadow" data-id="noteInput"></textarea>
+        class="reflection-input" data-id="noteInput"></textarea>
 
       <footer class="button-container">
         <button class="button text-white bold button-blue box-shadow box-shadow--hover" data-id="disable-button"
@@ -39,7 +34,9 @@
       </footer>
     </form>
 
-    <div data-id="noteContainer"></div>
+    <h2 class="note-container__header">Activity</h2>
+    <div data-id="noteContainer" class="note-container">
+    </div>
   </main>
 
   <script src="../../dist/mindfulnessCheck.js" type="text/javascript"></script>
