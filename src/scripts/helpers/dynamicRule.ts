@@ -6,44 +6,58 @@
 // dynamic rules. Thus, we have to keep the 2 in sync.
 // -----------------------------------------------------------------------------
 
-const STORAGE_RULES = 'rules'
+import { IRule } from './rules'
 
-export async function getSavedRules() {
-  const results = await chrome.storage.sync.get(STORAGE_RULES)
-  const rules = results.rules
-  return rules
+export type DynamicRule = chrome.declarativeNetRequest.Rule
+
+export async function disableDynamicRule(id: string): Promise<void> {
+  await chrome.declarativeNetRequest.updateEnabledRulesets({
+    disableRulesetIds: [id],
+  })
 }
 
-export async function getDynamicRules() {
+export async function enableDynamicRule(id: string): Promise<void> {
+  await chrome.declarativeNetRequest.updateEnabledRulesets({
+    enableRulesetIds: [id],
+  })
+}
+
+export async function getDynamicRules(): Promise<DynamicRule[]> {
   const rules = await chrome.declarativeNetRequest.getDynamicRules()
   return rules
 }
 
-export async function deleteRules(rules: chrome.declarativeNetRequest.Rule[]) {
+export async function deleteDynamicsRule(rule: DynamicRule): Promise<void> {
+  await chrome.declarativeNetRequest.updateDynamicRules({
+    removeRuleIds: [rule.id],
+  })
+}
+
+export async function deleteDynamicsRules(rules: DynamicRule[]): Promise<void> {
   await chrome.declarativeNetRequest.updateDynamicRules({
     removeRuleIds: rules.map((rule) => rule.id),
   })
 }
 
 export async function addDynamicRule(rule: string): Promise<void> {
-  const builtRule = await _buildDynamicRuleFromRuleString(rule)
+  const builtRule = await _buildDynamicRuleFromRuleMatcher(rule)
   await chrome.declarativeNetRequest.updateDynamicRules({
     addRules: [builtRule],
   })
 }
 
-export async function addDynamicRules(rules: string[]): Promise<void> {
+export async function addDynamicRules(rules: IRule[]): Promise<void> {
   for (const rule of rules) {
-    await addDynamicRule(rule)
+    await addDynamicRule(rule.matcher)
   }
 }
 
-async function _buildDynamicRuleFromRuleString(
+async function _buildDynamicRuleFromRuleMatcher(
   rule: string
-): Promise<chrome.declarativeNetRequest.Rule> {
+): Promise<DynamicRule> {
   const dynamicRuleId = await _getNextDynamicRuleId()
 
-  const builtRule: chrome.declarativeNetRequest.Rule = {
+  const builtRule: DynamicRule = {
     id: dynamicRuleId,
     priority: 1,
     action: {
@@ -59,7 +73,7 @@ async function _buildDynamicRuleFromRuleString(
   return builtRule
 }
 
-async function _getNextDynamicRuleId() {
+async function _getNextDynamicRuleId(): Promise<number> {
   const rules = await getDynamicRules()
   if (!rules) return 1
 

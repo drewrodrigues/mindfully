@@ -12,6 +12,9 @@ export type ElementSelector =
   | 'options-button'
   | 'character-count-met'
   | 'character-count-not-met'
+  | 'website-matcher-input'
+  | 'website-addition-form'
+  | 'websites'
 
 export function getElement(selector: ElementSelector) {
   return document.querySelector(`[data-id="${selector}"]`)
