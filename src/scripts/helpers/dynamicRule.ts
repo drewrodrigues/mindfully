@@ -6,7 +6,7 @@
 // dynamic rules. Thus, we have to keep the 2 in sync.
 // -----------------------------------------------------------------------------
 
-import { IRule } from './rules'
+import { ISavedRule } from './rules'
 
 export type DynamicRule = chrome.declarativeNetRequest.Rule
 
@@ -15,10 +15,21 @@ export async function getDynamicRules(): Promise<DynamicRule[]> {
   return rules
 }
 
-export async function deleteDynamicsRule(rule: DynamicRule): Promise<void> {
-  await chrome.declarativeNetRequest.updateDynamicRules({
-    removeRuleIds: [rule.id],
-  })
+export async function deleteDynamicsRule(ruleMatcher: string): Promise<void> {
+  const dynamicRules = await getDynamicRules()
+  const dynamicRule = dynamicRules.find(
+    (dynamicRule) => dynamicRule.condition.urlFilter === ruleMatcher
+  )
+
+  if (dynamicRule) {
+    await chrome.declarativeNetRequest.updateDynamicRules({
+      removeRuleIds: [dynamicRule.id],
+    })
+  } else {
+    throw new Error(
+      `Failed to delete dynamic rule with matcher (${ruleMatcher})`
+    )
+  }
 }
 
 export async function deleteDynamicsRules(rules: DynamicRule[]): Promise<void> {
@@ -35,7 +46,7 @@ export async function addDynamicRule(rule: string): Promise<DynamicRule> {
   return builtRule
 }
 
-export async function addDynamicRules(rules: IRule[]): Promise<void> {
+export async function addDynamicRules(rules: ISavedRule[]): Promise<void> {
   for (const rule of rules) {
     await addDynamicRule(rule.matcher)
   }

@@ -99,3 +99,31 @@ body {
   font-size: 16px;
   cursor: pointer;
 }
+
+.toggle-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 60px;
+  background: #ccc;
+  border-radius: 15px;
+  padding: 2px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.toggle-container--enabled {
+  justify-content: flex-end;
+}
+
+.toggle-circle {
+  background: gray;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  transition: background 150ms;
+}
+
+.toggle-container--enabled .toggle-circle {
+  /* TODO: use var */
+  background: var(--gradient-green);
+}

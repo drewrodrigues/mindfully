@@ -1,8 +1,20 @@
 // TODO: change page name to rules
 
-import { DynamicRule, addDynamicRule, deleteDynamicsRule, getDynamicRules } from './helpers/dynamicRule'
-import { getElement } from './helpers/elements'
-import { deleteSavedRule, deleteSavedRuleByMatcher } from './helpers/rules'
+import {
+  DynamicRule,
+  addDynamicRule,
+  deleteDynamicsRule,
+  disableDynamicRule,
+  getDynamicRules,
+} from './helpers/dynamicRule'
+import { createElement, getElement } from './helpers/elements'
+import {
+  ISavedRule,
+  deleteSavedRule,
+  deleteSavedRuleByMatcher,
+  getSavedRules,
+  updateSavedRule,
+} from './helpers/rules'
 
 const { saveSavedRule } = require('./helpers/rules')
 
@@ -21,41 +33,72 @@ websiteAdditionForm.addEventListener('submit', async (e) => {
     .get(WEBSITE_MATCHER)
     .toString()
     .toLocaleLowerCase()
-  await saveSavedRule(ruleMatcher)
+  const savedRule = await saveSavedRule(ruleMatcher)
 
-  const dynamicRule = await addDynamicRule(ruleMatcher)
-  websiteContainer.prepend(RuleBubble(dynamicRule))
+  await addDynamicRule(ruleMatcher)
+  websiteContainer.prepend(RuleBubble(savedRule))
   websiteMatcherInput.value = ''
 })
 
 async function renderRuleMatchers() {
-  const dynamicRules = await getDynamicRules()
+  const savedRules = await getSavedRules()
+  // * we'll sync up dynamic rules in the background and use the saved rules as the source of truth
+  console.log({ savedRules })
   const elementsToRender = []
 
-  for (const dynamicRule of dynamicRules) {
-    elementsToRender.unshift(RuleBubble(dynamicRule))
+  for (const savedRule of savedRules) {
+    elementsToRender.unshift(RuleBubble(savedRule))
   }
 
   websiteContainer.innerHTML = null
   websiteContainer.append(...elementsToRender)
 }
 
-function RuleBubble(rule: DynamicRule) {
-  const websiteElement = document.createElement('div')
-  websiteElement.textContent = rule.condition.urlFilter
-  websiteElement.className = 'bubble'
+function RuleBubble(rule: ISavedRule) {
+  const ruleElement = document.createElement('div')
+  ruleElement.textContent = rule.matcher
+  ruleElement.className = 'bubble'
 
-  websiteElement.appendChild(
+  ruleElement.appendChild(
     DeleteButton({
       onClick: async () => {
-        await deleteSavedRuleByMatcher(rule.condition.urlFilter)
-        await deleteDynamicsRule(rule)
+        await deleteSavedRuleByMatcher(rule.matcher)
+        await deleteDynamicsRule(rule.matcher)
         renderRuleMatchers()
       },
     })
   )
 
-  return websiteElement
+  ruleElement.appendChild(
+    ToggleRule({
+      enabled: rule.enabled,
+      onToggle: async () => {
+        await updateSavedRule({ ...rule, enabled: !rule.enabled })
+        if (rule.enabled) {
+          await deleteDynamicsRule(rule.matcher)
+        } else {
+          await addDynamicRule(rule.matcher)
+        }
+        renderRuleMatchers()
+      },
+    })
+  )
+
+  return ruleElement
+}
+
+function ToggleRule(props: { enabled: boolean; onToggle: () => void }) {
+  const toggleCircle = createElement('div', {
+    className: `toggle-circle`,
+  })
+
+  return createElement('div', {
+    className: `toggle-container ${
+      props.enabled ? 'toggle-container--enabled' : ''
+    }`,
+    children: [toggleCircle],
+    onClick: props.onToggle,
+  })
 }
 
 // TODO: create -- UIElement class to abstract class setting and text setting, etc
