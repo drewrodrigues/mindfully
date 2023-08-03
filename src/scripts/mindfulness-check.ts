@@ -87,6 +87,8 @@ const QUOTES = [
   'You can never conquer the mountain. You can only conquer yourself.',
   'We are what we repeatedly do. Excellence then is not an act, but a habit.',
 ]
-QUOTE.textContent = QUOTES[Math.floor(Math.random() * (QUOTES.length + 1))]
+
+const randomQuoteNumber = Math.floor(Math.random() * QUOTES.length)
+QUOTE.textContent = QUOTES[randomQuoteNumber]
 
 renderNotesFromStorage()

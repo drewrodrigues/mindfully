@@ -31,7 +31,7 @@ export async function getSavedRules(): Promise<ISavedRule[]> {
 export async function saveSavedRule(rule: string): Promise<ISavedRule> {
   const existingSavedRules = await getSavedRules()
   const newRule: ISavedRule = { id: uuidv4(), matcher: rule, enabled: true }
-  const updatedRules = [newRule, ...existingSavedRules]
+  const updatedRules = [...existingSavedRules, newRule]
 
   await _storeRules(updatedRules)
 

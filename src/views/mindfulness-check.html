@@ -4,6 +4,7 @@
   <title>Mindfully</title>
   <link rel="stylesheet" href="../styles/reset.css">
   <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/shared.css">
   <link rel="stylesheet" type="text/css" href="../styles/mindfulness-check.css" />
 </head>
 
@@ -19,17 +20,16 @@
   <p data-id="quote" class="quote"></p>
 
   <main class="container">
-    <form>
+    <form class="reflection-input">
       <textarea type="text" placeholder="Write about why you want to use view this website right now..."
-        class="reflection-input" data-id="noteInput"></textarea>
+        data-id="noteInput"></textarea>
 
       <footer class="button-container">
-        <button class="button text-white bold button-green box-shadow box-shadow--hover"
-          data-id="resistButton">Resist</button>
+        <button class="button text-white bold button-green" data-id="resistButton">Resist</button>
       </footer>
     </form>
 
-    <h2 class="note-container__header">Activity</h2>
+    <h2 class="section-header">Activity</h2>
     <div data-id="noteContainer" class="note-container">
     </div>
   </main>

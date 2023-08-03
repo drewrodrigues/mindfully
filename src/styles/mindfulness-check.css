@@ -10,7 +10,7 @@ body {
   margin-bottom: 40px;
   font-size: 18px;
   font-style: italic;
-  color: #999;
+  color: var(--gray-medium);
 }
 
 .quote::before,
@@ -21,7 +21,7 @@ body {
   font-family: cursive;
   display: inline-block;
   padding: 0 15px;
-  color: #999;
+  color: var(--gray-medium);
 }
 
 .quote::after {
@@ -76,10 +76,6 @@ body {
   font-weight: 700;
 }
 
-.logo {
-  font-size: 22px;
-}
-
 .container {
   max-width: 550px;
   margin: 0 auto;
@@ -94,14 +90,25 @@ body {
 .reflection-input {
   border: none;
   border-radius: var(--border-radius-large);
-  height: 300px;
   background: white;
-  resize: none;
   width: 100%;
   padding: 20px;
   margin-bottom: 40px;
-  line-height: 1.5;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.reflection-input textarea {
+  line-height: 1.5;
+  height: 300px;
+  resize: none;
+}
+
+.reflection-input textarea:focus {
+  outline: none;
 }
 
 .character-count-met {
@@ -141,18 +148,11 @@ body {
   color: gray;
 }
 
-.note-container__header {
-  font-weight: 700;
-  font-size: 22px;
-  margin: 40px 0 20px;
-}
-
 .note {
   background: white;
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 10px;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
   position: relative;
 }
 
@@ -188,7 +188,7 @@ body {
 
 .note-time {
   font-size: 12px;
-  color: #999;
+  color: var(--gray-medium);
 }
 
 .note-indicator {

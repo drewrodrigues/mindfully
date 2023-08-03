@@ -5,6 +5,7 @@
   <title>Mindfully - Rules</title>
   <link rel="stylesheet" href="../styles/reset.css" type="text/css" />
   <link rel="stylesheet" href="../styles/variables.css" type="text/css" />
+  <link rel="stylesheet" href="../styles/shared.css" type="text/css" />
   <link rel="stylesheet" href="../styles/options.css" type="text/css" />
 </head>
 
@@ -13,19 +14,17 @@
     <header class="header">
       <h1 class="logo">Mindfully</h1>
 
-      <aside>
-        <span>Rules</span>
-      </aside>
+      <span>Rules</span>
     </header>
 
-    <h3 class="label">Rules</h3>
 
     <form class="website-add-container bubble" data-id="websiteAdditionForm">
       <input type="text" placeholder="Add a new website here..." class="website-input" name="website-matcher"
-        data-id="websiteMatcherInput" />
+        data-id="websiteMatcherInput" autofocus />
       <button class="website-button">Add</button>
     </form>
 
+    <h3 class="section-header">Rules</h3>
     <div class="website-container" data-id="websites">
     </div>
   </main>
