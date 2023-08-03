@@ -1,5 +1,5 @@
+import { addDynamicRule } from './helpers/dynamicRule'
 import { getElement } from './helpers/elements'
-import { addDynamicRule } from './helpers/storage'
 import { goToOptionsPage } from './helpers/navigation'
 
 getElement('popupOptionsButton').addEventListener('click', () => {

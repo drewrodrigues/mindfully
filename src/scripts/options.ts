@@ -1,10 +1,10 @@
 // TODO: change page name to rules
 
-import { DynamicRule, deleteDynamicsRule } from './helpers/dynamicRule'
+import { DynamicRule, addDynamicRule, deleteDynamicsRule, getDynamicRules } from './helpers/dynamicRule'
 import { getElement } from './helpers/elements'
+import { deleteSavedRule, deleteSavedRuleByMatcher } from './helpers/rules'
 
 const { saveSavedRule } = require('./helpers/rules')
-const { getDynamicRules, addDynamicRule } = require('./helpers/storage')
 
 const WEBSITE_MATCHER = 'website-matcher'
 
@@ -28,16 +28,16 @@ websiteAdditionForm.addEventListener('submit', async (e) => {
   websiteMatcherInput.value = ''
 })
 
-async function renderWebsiteMatchesFromStorage() {
-  const rules = await getDynamicRules()
-  console.log('Got rules', rules)
+async function renderRuleMatchers() {
+  const dynamicRules = await getDynamicRules()
+  const elementsToRender = []
 
-  const elementsToAdd = []
-  for (const rule of rules) {
-    elementsToAdd.unshift(RuleBubble(rule))
+  for (const dynamicRule of dynamicRules) {
+    elementsToRender.unshift(RuleBubble(dynamicRule))
   }
+
   websiteContainer.innerHTML = null
-  websiteContainer.append(...elementsToAdd)
+  websiteContainer.append(...elementsToRender)
 }
 
 function RuleBubble(rule: DynamicRule) {
@@ -46,22 +46,25 @@ function RuleBubble(rule: DynamicRule) {
   websiteElement.className = 'bubble'
 
   websiteElement.appendChild(
-    DeleteButton(() => {
-      // ! this should be deleteRule and then deleteDynamicRule
-      deleteDynamicsRule(rule)
-      renderWebsiteMatchesFromStorage()
+    DeleteButton({
+      onClick: async () => {
+        await deleteSavedRuleByMatcher(rule.condition.urlFilter)
+        await deleteDynamicsRule(rule)
+        renderRuleMatchers()
+      },
     })
   )
 
   return websiteElement
 }
 
-function DeleteButton(onClick: () => void) {
+// TODO: create -- UIElement class to abstract class setting and text setting, etc
+function DeleteButton({ onClick }: { onClick: () => void }) {
   const deleteButtonElement = document.createElement('button')
-  deleteButtonElement.textContent = 'X' // TODO: change me to an icon
+  deleteButtonElement.textContent = 'X'
   deleteButtonElement.className = 'bubble-delete-button'
   deleteButtonElement.addEventListener('click', onClick)
   return deleteButtonElement
 }
 
-renderWebsiteMatchesFromStorage()
+renderRuleMatchers()

@@ -39,11 +39,12 @@ export async function deleteDynamicsRules(rules: DynamicRule[]): Promise<void> {
   })
 }
 
-export async function addDynamicRule(rule: string): Promise<void> {
+export async function addDynamicRule(rule: string): Promise<DynamicRule> {
   const builtRule = await _buildDynamicRuleFromRuleMatcher(rule)
   await chrome.declarativeNetRequest.updateDynamicRules({
     addRules: [builtRule],
   })
+  return builtRule
 }
 
 export async function addDynamicRules(rules: IRule[]): Promise<void> {

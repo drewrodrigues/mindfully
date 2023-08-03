@@ -24,12 +24,15 @@ export async function getSavedRules(): Promise<IRule[]> {
   return results.rules
 }
 
+// Idea: can abstract out the below 3 functions, to a function with a callback
+// add that callback gets all rules and then returns how it wants it updated
+
 export async function saveSavedRule(rule: string): Promise<IRule[]> {
   const existingSavedRules = await getSavedRules()
   const newRule: IRule = { id: uuidv4(), matcher: rule }
   const updatedRules = [newRule, ...existingSavedRules]
 
-  _storeRules(updatedRules)
+  await _storeRules(updatedRules)
 
   return updatedRules
 }
@@ -40,7 +43,20 @@ export async function deleteSavedRule(ruleId: string): Promise<IRule[]> {
     (existingRule) => existingRule.id !== ruleId
   )
 
-  _storeRules(filteredRules)
+  await _storeRules(filteredRules)
+
+  return filteredRules
+}
+
+export async function deleteSavedRuleByMatcher(
+  matcher: string
+): Promise<IRule[]> {
+  const existingSavedRules = await getSavedRules()
+  const filteredRules = existingSavedRules.filter(
+    (existingSavedRule) => existingSavedRule.matcher !== matcher
+  )
+
+  await _storeRules(filteredRules)
 
   return filteredRules
 }
