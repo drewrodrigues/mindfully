@@ -160,11 +160,10 @@ async function renderMatchedRule() {
   matchedRuleElement.textContent = ruleMatchedText
 }
 
-// TODO: split up some of these modules into submodules within a directory based on the page
-const RESIST_BUTTON = getElement('resist-button')
+const RESIST_BUTTON = getElement('resistButton')
 const NOTE_INPUT = getElement('noteInput')
-const DISABLE_BUTTON = getElement('disable-button')
-const OPTIONS_BUTTON = getElement('options-button')
+const DISABLE_BUTTON = getElement('disableButton')
+const OPTIONS_BUTTON = getElement('optionsButton')
 const NOTE_CONTAINER = getElement('noteContainer')
 
 RESIST_BUTTON.addEventListener('click', onClickResist)

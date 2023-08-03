@@ -21,9 +21,9 @@ const { saveSavedRule } = require('./helpers/rules')
 const WEBSITE_MATCHER = 'website-matcher'
 
 const websiteContainer = getElement('websites')
-const websiteAdditionForm = getElement('website-addition-form')
+const websiteAdditionForm = getElement('websiteAdditionForm')
 const websiteMatcherInput = getElement(
-  'website-matcher-input'
+  'websiteMatcherInput'
 ) as HTMLInputElement
 
 websiteAdditionForm.addEventListener('submit', async (e) => {

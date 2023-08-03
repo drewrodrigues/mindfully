@@ -1,5 +1,3 @@
-// TODO: be consistent with casing
-// TODO: add some validation to check that these are valid -- otherwise, crash it
 export type ElementSelector =
   | 'matchedRule'
   | 'popupOptionsButton'
@@ -7,13 +5,11 @@ export type ElementSelector =
   | 'characterCount'
   | 'noteInput'
   | 'noteContainer'
-  | 'resist-button'
-  | 'disable-button'
-  | 'options-button'
-  | 'character-count-met'
-  | 'character-count-not-met'
-  | 'website-matcher-input'
-  | 'website-addition-form'
+  | 'resistButton'
+  | 'disableButton'
+  | 'optionsButton'
+  | 'websiteMatcherInput'
+  | 'websiteAdditionForm'
   | 'websites'
 
 export function getElement(selector: ElementSelector) {
