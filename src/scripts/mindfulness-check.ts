@@ -75,8 +75,18 @@ const RESIST_BUTTON = getElement('resistButton')
 const NOTE_INPUT = getElement('noteInput')
 const OPTIONS_BUTTON = getElement('optionsButton')
 const NOTE_CONTAINER = getElement('noteContainer')
+const QUOTE = getElement('quote')
 
 OPTIONS_BUTTON.addEventListener('click', onOptionsPageClick)
 RESIST_BUTTON.addEventListener('click', onClickResist)
+
+const QUOTES = [
+  'With self-discipline most anything is possible.',
+  "I can't always control my thoughts but I can choose how I respond to them.",
+  'The first and best victory is to conquer self.',
+  'You can never conquer the mountain. You can only conquer yourself.',
+  'We are what we repeatedly do. Excellence then is not an act, but a habit.',
+]
+QUOTE.textContent = QUOTES[Math.floor(Math.random() * (QUOTES.length + 1))]
 
 renderNotesFromStorage()
