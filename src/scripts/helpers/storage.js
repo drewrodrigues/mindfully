@@ -49,17 +49,19 @@ export async function addDynamicRule(rule) {
 }
 
 export async function addDynamicRules(rules) {
-  const rulesToAdd = rules.map(
-    async (rule) => await _buildDynamicRuleFromRuleString(rule)
-  )
-  await chrome.declarativeNetRequest.updateDynamicRules({
-    addRules: rulesToAdd,
-  })
+  for (const rule of rules) {
+    const builtRule = await _buildDynamicRuleFromRuleString(rule)
+    await chrome.declarativeNetRequest.updateDynamicRules({
+      addRules: [builtRule],
+    })
+  }
 }
 
 async function _buildDynamicRuleFromRuleString(rule) {
+  const dynamicRuleId = await _getNextDynamicRuleId()
+
   const builtRule = {
-    id: await _getNextDynamicRuleId(),
+    id: dynamicRuleId,
     priority: 1,
     action: {
       type: 'redirect',
@@ -70,6 +72,7 @@ async function _buildDynamicRuleFromRuleString(rule) {
       resourceTypes: ['main_frame'],
     },
   }
+
   return builtRule
 }
 

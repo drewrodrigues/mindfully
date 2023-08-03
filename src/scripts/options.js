@@ -10,6 +10,7 @@ const {
   getDynamicRules,
   addDynamicRule,
   deleteRules,
+  getSavedRules,
 } = require('./helpers/storage')
 
 const WEBSITE_MATCHER = 'website-matcher'
@@ -22,13 +23,11 @@ const websiteMatcherInput = document.querySelector(
   "[data-id='website-matcher-input']"
 )
 
-// TODO: type me BISH
-let rules = null
-
-websiteAdditionForm.addEventListener('submit', (e) => {
+websiteAdditionForm.addEventListener('submit', async (e) => {
   e.preventDefault()
   const formData = new FormData(websiteAdditionForm)
   const ruleMatcher = formData.get(WEBSITE_MATCHER).toLocaleLowerCase()
+  const rules = await getSavedRules()
   const newRules = [ruleMatcher, ...rules]
 
   // TODO: pull this out into Storage.ts (all storage interactions should be pass over there)
@@ -36,12 +35,11 @@ websiteAdditionForm.addEventListener('submit', (e) => {
     const rule = await addDynamicRule(ruleMatcher)
     websiteContainer.prepend(RuleBubble(rule))
     websiteMatcherInput.value = ''
-    rules = newRules
   })
 })
 
 async function renderWebsiteMatchesFromStorage() {
-  rules = await getDynamicRules()
+  const rules = await getDynamicRules()
   console.log('Got rules', rules)
 
   const elementsToAdd = []
