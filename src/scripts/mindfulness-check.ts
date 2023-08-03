@@ -1,10 +1,8 @@
 import { INote } from './helpers/notes'
 
 import { getElement } from './helpers/elements'
-import { goToResistedPage, goToOptionsPage } from './helpers/navigation'
-import { getNotes, saveNote, deleteNote } from './helpers/notes'
-
-const ONE_SECOND = 1_000
+import { goToOptionsPage, goToResistedPage } from './helpers/navigation'
+import { deleteNote, getNotes, saveNote } from './helpers/notes'
 
 function onClickResist(e: Event) {
   e.preventDefault()
@@ -13,72 +11,8 @@ function onClickResist(e: Event) {
   goToResistedPage()
 }
 
-async function onClickDisable(e: Event) {
-  e.preventDefault()
-
-  const tab = await chrome.tabs.getCurrent()
-  const { rulesMatchedInfo: matchedRules } =
-    await chrome.declarativeNetRequest.getMatchedRules({
-      tabId: tab.id,
-    })
-
-  const ruleIdsToDisable = matchedRules.map((rule) => rule.rule.ruleId)
-
-  // disable rule temporarily
-  console.log('Disabling dynamic rules', ruleIdsToDisable)
-
-  // ! TODO: it looks like they'll have to be explicitly removed for some time from dynamic rules
-  // * this means we could show they're enabled if they are a dynamic rule and saved
-  // * otherwise, they're disabled if they're saved and not a dynamic rule
-  // ? maybe there's a way to disable dynamic or session rules temporarily?
-  await chrome.declarativeNetRequest.updateDynamicRules({
-    removeRuleIds: ruleIdsToDisable,
-  })
-
-  // re-enable rule
-  // ! might have to go into a service worker
-  // setTimeout(async () => {
-  //   console.log('Re-enabling disabled rule')
-  //   await chrome.declarativeNetRequest.updateEnabledRulesets({
-  //     enableRulesetIds: matchedRules.map((rule) => `${rule.rule.ruleId}`),
-  //   })
-  // }, 10_000)
-
-  // TODO: Redirect to a page that says the rule has been disabled (or temporarily)
-  chrome.tabs.remove(tab.id)
-}
-
 function onOptionsPageClick() {
   goToOptionsPage()
-}
-
-function setCountdownUntilDisableButtonEnabled() {
-  let secondsLeft = 60
-
-  function tick() {
-    if (secondsLeft === 0) {
-      DISABLE_BUTTON.textContent = 'Disable Rule'
-      DISABLE_BUTTON.disabled = false
-      clearInterval(interval)
-    } else {
-      DISABLE_BUTTON.textContent = `Disable allowed in ${secondsLeft}...`
-      secondsLeft--
-    }
-  }
-
-  tick()
-  const interval = setInterval(tick, ONE_SECOND)
-}
-
-function setRandomBackgroundImage() {
-  const BACKGROUND_COUNT = 11
-  const randomNumber = Math.random() * BACKGROUND_COUNT + 1
-  const image = chrome.runtime.getURL(
-    `./src/assets/background${randomNumber}.jpg`
-  )
-
-  document.body.style.background = `url("${image}")`
-  document.body.style.backgroundSize = 'cover'
 }
 
 async function renderNotesFromStorage() {
@@ -105,7 +39,6 @@ async function renderNotesFromStorage() {
   }
 }
 
-// TODO: a way to render these raw like in story book?
 function Note(note: INote) {
   const noteElement = document.createElement('div')
   noteElement.classList.add('note')
@@ -138,39 +71,12 @@ function Note(note: INote) {
   return noteElement
 }
 
-async function renderMatchedRule() {
-  // MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL can be thrown if there are too many
-  // matched requests. So, we'll catch and put a different message.
-
-  let ruleMatchedText = 'Rule '
-  try {
-    const matchedRules = await chrome.declarativeNetRequest.getMatchedRules()
-    const allRules = await chrome.declarativeNetRequest.getDynamicRules()
-
-    const matchedRuleUrlFilter = allRules.find(
-      (allRule) => allRule.id === matchedRules.rulesMatchedInfo[0].rule.ruleId
-    )?.condition.urlFilter
-
-    ruleMatchedText = matchedRuleUrlFilter
-  } catch (e) {
-    console.error(e)
-  }
-
-  const matchedRuleElement = getElement('matchedRule')
-  matchedRuleElement.textContent = ruleMatchedText
-}
-
 const RESIST_BUTTON = getElement('resistButton')
 const NOTE_INPUT = getElement('noteInput')
-const DISABLE_BUTTON = getElement('disableButton')
 const OPTIONS_BUTTON = getElement('optionsButton')
 const NOTE_CONTAINER = getElement('noteContainer')
 
-RESIST_BUTTON.addEventListener('click', onClickResist)
-DISABLE_BUTTON.addEventListener('click', onClickDisable)
 OPTIONS_BUTTON.addEventListener('click', onOptionsPageClick)
+RESIST_BUTTON.addEventListener('click', onClickResist)
 
-setCountdownUntilDisableButtonEnabled()
-// setRandomBackgroundImage()
 renderNotesFromStorage()
-renderMatchedRule()

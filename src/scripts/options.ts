@@ -1,16 +1,7 @@
-// TODO: change page name to rules
-
-import {
-  DynamicRule,
-  addDynamicRule,
-  deleteDynamicsRule,
-  disableDynamicRule,
-  getDynamicRules,
-} from './helpers/dynamicRule'
+import { addDynamicRule, deleteDynamicsRule } from './helpers/dynamicRule'
 import { createElement, getElement } from './helpers/elements'
 import {
   ISavedRule,
-  deleteSavedRule,
   deleteSavedRuleByMatcher,
   getSavedRules,
   updateSavedRule,
