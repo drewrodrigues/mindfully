@@ -6,6 +6,7 @@ module.exports = {
     options: './src/scripts/options.js',
     resisted: './src/scripts/resisted.js',
     serviceWorker: './src/scripts/serviceWorker.js',
+    popup: './src/scripts/popup.ts',
   },
   output: {
     filename: '[name].js',

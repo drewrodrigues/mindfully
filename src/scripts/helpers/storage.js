@@ -13,22 +13,21 @@ const STORAGE_RULES = 'rules'
 // * For keeping track of the next dynamic ID we can use. Chrome doesn't
 // * automatically set this value, so we must first read from storage and then
 // * use +1 what we find.
-let maxDynamicRuleId = 0
+
+// ! side effect for maxDynamicRuleId
+// TODO: fixme -- so that this isn't a global variable and is correct when used
+// TODO: within below functions
 
 export async function getSavedRules() {
   console.log('Getting saved rules')
   const results = await chrome.storage.sync.get(STORAGE_RULES)
   const rules = results.rules
-  if (rules) {
-    _updateMaxDynamicRule(rules)
-  }
   return rules
 }
 
 export async function getDynamicRules() {
   console.log('Getting rules')
   const rules = await chrome.declarativeNetRequest.getDynamicRules()
-  _updateMaxDynamicRule(rules)
   return rules
 }
 
@@ -41,27 +40,26 @@ export async function deleteRules(rules) {
 }
 
 export async function addDynamicRule(rule) {
-  const builtRule = _buildDynamicRuleFromRuleString(rule)
+  const builtRule = await _buildDynamicRuleFromRuleString(rule)
   const ruleToAdd = [builtRule]
   await chrome.declarativeNetRequest.updateDynamicRules({
     addRules: ruleToAdd,
   })
-  _updateMaxDynamicRule(ruleToAdd)
   return builtRule
 }
 
 export async function addDynamicRules(rules) {
-  const rulesToAdd = rules.map((rule) => _buildDynamicRuleFromRuleString(rule))
+  const rulesToAdd = rules.map(
+    async (rule) => await _buildDynamicRuleFromRuleString(rule)
+  )
   await chrome.declarativeNetRequest.updateDynamicRules({
     addRules: rulesToAdd,
   })
-  _updateMaxDynamicRule(rulesToAdd)
-  _updateMaxDynamicRule(rulesToAdd)
 }
 
-function _buildDynamicRuleFromRuleString(rule) {
+async function _buildDynamicRuleFromRuleString(rule) {
   const builtRule = {
-    id: maxDynamicRuleId + 1,
+    id: await _getNextDynamicRuleId(),
     priority: 1,
     action: {
       type: 'redirect',
@@ -75,10 +73,21 @@ function _buildDynamicRuleFromRuleString(rule) {
   return builtRule
 }
 
-function _updateMaxDynamicRule(rules) {
-  rules.forEach((rule) => {
-    if (rule.id > maxDynamicRuleId) {
-      maxDynamicRuleId = rule.id
+async function _getNextDynamicRuleId() {
+  const rules = await getDynamicRules()
+  console.log({ getDynamicRules: rules })
+  if (!rules) return 1
+
+  let nextRuleId = 1
+
+  console.log('Checking rules')
+  for (const rule of rules) {
+    if (rule.id >= nextRuleId) {
+      nextRuleId = rule.id + 1
     }
-  })
+  }
+
+  console.log('nextRuleId', nextRuleId)
+
+  return nextRuleId
 }

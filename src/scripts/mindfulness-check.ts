@@ -1,15 +1,15 @@
 import { INote } from './helpers/notes'
 
-const { getElement } = require('./helpers/elements')
-const { goToResistedPage, goToOptionsPage } = require('./helpers/navigation')
-const { getNotes, saveNote, deleteNote } = require('./helpers/notes')
+import { getElement } from './helpers/elements'
+import { goToResistedPage, goToOptionsPage } from './helpers/navigation'
+import { getNotes, saveNote, deleteNote } from './helpers/notes'
 
 const ONE_SECOND = 1_000
 
 function onClickResist(e: Event) {
   e.preventDefault()
   // If there's a note, we'll save it
-  saveNote(NOTE_INPUT.value)
+  saveNote((NOTE_INPUT as HTMLInputElement).value)
   goToResistedPage()
 }
 
@@ -138,6 +138,28 @@ function Note(note: INote) {
   return noteElement
 }
 
+async function renderMatchedRule() {
+  // MAX_GETMATCHEDRULES_CALLS_PER_INTERVAL can be thrown if there are too many
+  // matched requests. So, we'll catch and put a different message.
+
+  let ruleMatchedText = 'Rule '
+  try {
+    const matchedRules = await chrome.declarativeNetRequest.getMatchedRules()
+    const allRules = await chrome.declarativeNetRequest.getDynamicRules()
+
+    const matchedRuleUrlFilter = allRules.find(
+      (allRule) => allRule.id === matchedRules.rulesMatchedInfo[0].rule.ruleId
+    )?.condition.urlFilter
+
+    ruleMatchedText = matchedRuleUrlFilter
+  } catch (e) {
+    console.error(e)
+  }
+
+  const matchedRuleElement = getElement('matchedRule')
+  matchedRuleElement.textContent = ruleMatchedText
+}
+
 // TODO: split up some of these modules into submodules within a directory based on the page
 const RESIST_BUTTON = getElement('resist-button')
 const NOTE_INPUT = getElement('noteInput')
@@ -152,3 +174,4 @@ OPTIONS_BUTTON.addEventListener('click', onOptionsPageClick)
 setCountdownUntilDisableButtonEnabled()
 // setRandomBackgroundImage()
 renderNotesFromStorage()
+renderMatchedRule()
