@@ -1,9 +1,7 @@
 // TODO: show rule ids on options
 // TODO: show delete button
-
 // TODO: show saved rules and which are enabled ('dynamic rules')
 // TODO: allow enable, disabling rules
-
 // TODO: reload options on re-mount
 
 const {
