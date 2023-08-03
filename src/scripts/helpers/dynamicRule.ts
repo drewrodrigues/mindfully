@@ -10,18 +10,6 @@ import { IRule } from './rules'
 
 export type DynamicRule = chrome.declarativeNetRequest.Rule
 
-export async function disableDynamicRule(id: string): Promise<void> {
-  await chrome.declarativeNetRequest.updateEnabledRulesets({
-    disableRulesetIds: [id],
-  })
-}
-
-export async function enableDynamicRule(id: string): Promise<void> {
-  await chrome.declarativeNetRequest.updateEnabledRulesets({
-    enableRulesetIds: [id],
-  })
-}
-
 export async function getDynamicRules(): Promise<DynamicRule[]> {
   const rules = await chrome.declarativeNetRequest.getDynamicRules()
   return rules
