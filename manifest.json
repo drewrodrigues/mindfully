@@ -4,8 +4,7 @@
   "description": "Mindfully not only blocks websites, but gives you space to be mindful about your web usage. It's a soft website blocker, meaning it will let you visit the blocked website after a countdown. Or you can be write a note and resist.",
   "version": "0.1",
   "action": {
-    "default_icon": "src/assets/mindfully.png",
-    "default_popup": "src/views/popup.html"
+    "default_icon": "src/assets/mindfully.png"
   },
   "web_accessible_resources": [
     {

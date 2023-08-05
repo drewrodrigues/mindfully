@@ -35,36 +35,7 @@ body {
   box-shadow: var(--shadow-primary);
 }
 
-.button {
-  border-radius: var(--border-radius-large);
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  height: 50px;
-  flex: 1;
-  margin: 0 10px;
-}
 
-.box-shadow--hover {
-  transition: 150ms box-shadow ease-out;
-}
-
-.box-shadow--hover:hover {
-  box-shadow: var(--shadow-hover);
-}
-
-.button-blue {
-  background: var(--gradient-blue);
-}
-
-.button-red {
-  background: var(--gradient-red);
-}
-
-.button-green {
-  background: var(--gradient-green);
-  font-weight: 700;
-}
 
 .text-white {
   color: white;

@@ -20,3 +20,36 @@ body {
   font-size: 16px;
   margin: 40px 0 20px;
 }
+
+.button {
+  border-radius: var(--border-radius-large);
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  height: 50px;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.box-shadow--hover {
+  transition: 150ms box-shadow ease-out;
+}
+
+.box-shadow--hover:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.button-blue {
+  background: var(--gradient-blue);
+}
+
+.button-red {
+  background: var(--gradient-red);
+}
+
+.button-green {
+  background: var(--gradient-green);
+  color: white;
+  font-weight: 700;
+  width: 100%;
+}
