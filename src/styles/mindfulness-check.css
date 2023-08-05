@@ -63,6 +63,7 @@ body {
 
 .button-green {
   background: var(--gradient-green);
+  font-weight: 700;
 }
 
 .text-white {

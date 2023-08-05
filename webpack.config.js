@@ -4,7 +4,7 @@ module.exports = {
   entry: {
     mindfulnessCheck: './src/scripts/mindfulness-check.ts',
     options: './src/scripts/options.ts',
-    resisted: './src/scripts/resisted.js',
+    resisted: './src/scripts/resisted.ts',
     serviceWorker: './src/scripts/serviceWorker.ts',
     popup: './src/scripts/popup.ts',
   },

@@ -15,8 +15,9 @@ confettiAnimate({
 })
 
 // close tab after congrats message
-setInterval(() => {
-  chrome.tabs.getCurrent().then((tab) => {
-    chrome.tabs.remove(tab.id)
-  })
-}, 3_000)
+// TODO: add message about closing in n seconds
+// setInterval(() => {
+//   chrome.tabs.getCurrent().then((tab) => {
+//     chrome.tabs.remove(tab.id)
+//   })
+// }, 3_000)
