@@ -27,7 +27,9 @@
     "activeTab",
     "declarativeNetRequest",
     "declarativeNetRequestFeedback",
-    "storage"
+    "storage",
+    "tabs",
+    "unlimitedStorage"
   ],
   "background": {
     "service_worker": "dist/serviceWorker.js"
