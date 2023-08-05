@@ -19,6 +19,7 @@ interface CreateElementOptions extends Record<string, any> {
   children?: HTMLElement[]
   className?: string
   onClick?: (e?: Event) => void
+  textContent?: string
 }
 
 export function createElement(
@@ -37,6 +38,11 @@ export function createElement(
   if (props.onClick) {
     // TODO: generalize this
     element.addEventListener('click', props.onClick)
+  }
+
+  if (props.textContent) {
+    // ! we can loop through props and assign them
+    element.textContent = props.textContent
   }
 
   return element

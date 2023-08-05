@@ -28,6 +28,11 @@ body {
   margin-bottom: 5px;
 }
 
+.bubble aside {
+  align-items: center;
+  display: flex;
+}
+
 .website-add-container {
   background: white;
   height: auto;
@@ -43,8 +48,9 @@ body {
   color: var(--gray-light);
   cursor: pointer;
   height: 100%;
-  padding: 0 20px;
+  padding: 15px;
   transition: color 250ms ease-in-out;
+  font-size: 12px;
 }
 
 .bubble-delete-button:hover {

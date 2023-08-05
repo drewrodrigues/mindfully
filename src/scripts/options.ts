@@ -46,11 +46,15 @@ async function renderRuleMatchers() {
 }
 
 function RuleBubble(rule: ISavedRule) {
-  const ruleElement = document.createElement('div')
-  ruleElement.textContent = rule.matcher
-  ruleElement.className = 'bubble'
+  const ruleElement = createElement('div', {
+    textContent: rule.matcher,
+    className: 'bubble',
+  })
 
-  ruleElement.appendChild(
+  const aside = createElement('aside')
+  ruleElement.append(aside)
+
+  aside.appendChild(
     DeleteButton({
       onClick: async () => {
         await deleteSavedRuleByMatcher(rule.matcher)
@@ -60,7 +64,7 @@ function RuleBubble(rule: ISavedRule) {
     })
   )
 
-  ruleElement.appendChild(
+  aside.appendChild(
     ToggleRule({
       enabled: rule.enabled,
       onToggle: async () => {
@@ -94,10 +98,11 @@ function ToggleRule(props: { enabled: boolean; onToggle: () => void }) {
 
 // TODO: create -- UIElement class to abstract class setting and text setting, etc
 function DeleteButton({ onClick }: { onClick: () => void }) {
-  const deleteButtonElement = document.createElement('button')
-  deleteButtonElement.textContent = 'X'
-  deleteButtonElement.className = 'bubble-delete-button'
-  deleteButtonElement.addEventListener('click', onClick)
+  const deleteButtonElement = createElement('button', {
+    textContent: 'X',
+    className: 'bubble-delete-button',
+    onClick,
+  })
   return deleteButtonElement
 }
 
