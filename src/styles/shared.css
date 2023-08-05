@@ -1,0 +1,12 @@
+.logo {
+  color: var(--gray-medium);
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.section-header {
+  color: var(--gray-medium);
+  font-weight: 700;
+  font-size: 16px;
+  margin: 40px 0 20px;
+}
