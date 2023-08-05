@@ -1,8 +1,5 @@
 body {
   background: #e9ebee;
-  position: relative;
-  padding: 0;
-  margin: 0;
 }
 
 .quote {
@@ -72,19 +69,9 @@ body {
   color: white;
 }
 
-.bold {
-  font-weight: 700;
-}
-
 .container {
   max-width: 550px;
   margin: 0 auto;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
 }
 
 .reflection-input {
