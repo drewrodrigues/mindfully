@@ -17,6 +17,12 @@
       "matches": ["https://*/*"]
     }
   ],
+  "icons": {
+    "16": "src/assets/mindfully.png",
+    "32": "src/assets/mindfully.png",
+    "48": "src/assets/mindfully.png",
+    "128": "src/assets/mindfully.png"
+  },
   "permissions": [
     "activeTab",
     "declarativeNetRequest",
