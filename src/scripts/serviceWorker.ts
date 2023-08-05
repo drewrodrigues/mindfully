@@ -3,6 +3,7 @@ import {
   deleteDynamicsRules,
   getDynamicRules,
 } from './helpers/dynamicRule'
+import { goToOptionsPage } from './helpers/navigation'
 import { getSavedRules } from './helpers/rules'
 ;(async () => {
   try {
@@ -22,3 +23,7 @@ import { getSavedRules } from './helpers/rules'
     console.error(e)
   }
 })()
+
+chrome.action.onClicked.addListener(() => {
+  goToOptionsPage()
+})
