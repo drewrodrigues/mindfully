@@ -4,11 +4,11 @@
 
 ## Features
 
-|           Mindfulness Page           | Rule Disable Allowed After Countdown |
-| :----------------------------------: | :----------------------------------: |
-|  ![](readme/mindfulness-check.png)   | ![](readme/disable-rule-allowed.png) |
-|          Resist Award Page           |       Random Background Images       |
-| ![](readme/resisting-award-page.png) | ![](readme/different-background.png) |
+|           Mindfulness Page           |
+| :----------------------------------: |
+|  ![](readme/mindfulness-check.png)   |
+|          Resist Award Page           |
+| ![](readme/resisting-award-page.png) |
 |            Rule Matching             |
 |   ![](readme/website-matching.png)   |
 
