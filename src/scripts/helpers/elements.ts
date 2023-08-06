@@ -2,6 +2,7 @@ export type ElementSelector =
   | 'popupOptionsButton'
   | 'popupBlockButton'
   | 'characterCount'
+  | 'errorBoundaryMessage'
   | 'noteInput'
   | 'noteContainer'
   | 'resistButton'

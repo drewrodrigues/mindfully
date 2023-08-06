@@ -1,5 +1,7 @@
+import { addErrorBoundary } from './helpers/addErrorBoundary'
 import { addDynamicRule, deleteDynamicsRule } from './helpers/dynamicRule'
 import { createElement, getElement } from './helpers/elements'
+import { goToErrorPage } from './helpers/navigation'
 import {
   ISavedRule,
   deleteSavedRuleByMatcher,
@@ -34,7 +36,6 @@ websiteAdditionForm.addEventListener('submit', async (e) => {
 async function renderRuleMatchers() {
   const savedRules = await getSavedRules()
   // * we'll sync up dynamic rules in the background and use the saved rules as the source of truth
-  console.log({ savedRules })
   const elementsToRender = []
 
   for (const savedRule of savedRules) {
@@ -106,4 +107,5 @@ function DeleteButton({ onClick }: { onClick: () => void }) {
   return deleteButtonElement
 }
 
+addErrorBoundary()
 renderRuleMatchers()

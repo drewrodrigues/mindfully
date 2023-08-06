@@ -2,6 +2,7 @@ module.exports = {
   mode: 'development',
   devtool: 'cheap-module-source-map',
   entry: {
+    error: './src/scripts/error.ts',
     mindfulnessCheck: './src/scripts/mindfulness-check.ts',
     options: './src/scripts/options.ts',
     resisted: './src/scripts/resisted.ts',

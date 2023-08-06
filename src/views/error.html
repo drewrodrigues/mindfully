@@ -1,0 +1,26 @@
+<html>
+
+<head>
+  <title>Mindfully - Mindful Check</title>
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/shared.css">
+  <link rel="stylesheet" href="../styles/error.css">
+  <link rel="icon" type="image/x-icon" href="../assets/mindfully.png">
+</head>
+
+<body>
+  <header class="header">
+    <h1 class="logo">
+      Mindfully
+    </h1>
+  </header>
+
+  <main>
+    <h1>Something Went Wrong</h1>
+    <p data-id="errorBoundaryMessage"></p>
+  </main>
+
+  <!-- TODO: automate this through webpack -->
+  <script src="../../dist/error.js" type="text/javascript"></script>
+</body>

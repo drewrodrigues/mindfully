@@ -7,11 +7,7 @@
   --gray-light: #ccc;
   --gray-medium: #999;
   --gray-dark: #888;
-  --gradient-blue: linear-gradient(
-    to bottom,
-    var(--blue-light),
-    var(--blue-primary)
-  );
+  --background: #e9ebee;
   --gradient-green: linear-gradient(
     to bottom,
     var(--green-light),

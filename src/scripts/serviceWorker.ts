@@ -1,3 +1,4 @@
+import { addErrorBoundary } from './helpers/addErrorBoundary'
 import {
   addDynamicRules,
   deleteDynamicsRules,
@@ -5,6 +6,8 @@ import {
 } from './helpers/dynamicRule'
 import { goToOptionsPage } from './helpers/navigation'
 import { getSavedRules } from './helpers/rules'
+
+addErrorBoundary()
 ;(async () => {
   try {
     const savedRules = await getSavedRules()

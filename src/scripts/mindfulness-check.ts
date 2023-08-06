@@ -3,6 +3,7 @@ import { INote } from './helpers/notes'
 import { getElement } from './helpers/elements'
 import { goToOptionsPage, goToResistedPage } from './helpers/navigation'
 import { deleteNote, getNotes, saveNote } from './helpers/notes'
+import { addErrorBoundary } from './helpers/addErrorBoundary'
 
 function onClickResist(e: Event) {
   e.preventDefault()
@@ -70,6 +71,8 @@ function Note(note: INote) {
 
   return noteElement
 }
+
+addErrorBoundary()
 
 const RESIST_BUTTON = getElement('resistButton')
 const NOTE_INPUT = getElement('noteInput')

@@ -1,0 +1,19 @@
+/* TODO: de-dupe this with resisted page */
+
+main {
+  margin-top: 150px;
+  text-align: center;
+}
+
+main h1 {
+  background: var(--gradient-red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+main p {
+  color: var(--gray-medium);
+}
