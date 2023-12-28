@@ -14,6 +14,7 @@ module.exports = {
   rules: {
     semi: 0,
     '@typescript-eslint/no-var-requires': 0,
+    '@typescript-eslint/no-explicit-any': 1,
   },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
