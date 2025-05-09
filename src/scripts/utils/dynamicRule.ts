@@ -21,27 +21,12 @@ export async function getDynamicRules(): Promise<DynamicRule[]> {
   return rules
 }
 
-export async function deleteDynamicsRule(ruleMatcher: string): Promise<void> {
-  const dynamicRules = await getDynamicRules()
-  const dynamicRule = dynamicRules.find(
-    (dynamicRule) => dynamicRule.condition.urlFilter === ruleMatcher
-  )
-
-  if (dynamicRule) {
-    await chrome.declarativeNetRequest.updateDynamicRules({
-      removeRuleIds: [dynamicRule.id],
-    })
-  } else {
-    throw new Error(
-      `Failed to delete dynamic rule with matcher (${ruleMatcher})`
-    )
-  }
-}
+export async function deleteDynamicsRule(ruleMatcher: string): Promise<void> {}
 
 export async function deleteDynamicsRules(rules: DynamicRule[]): Promise<void> {
-  await chrome.declarativeNetRequest.updateDynamicRules({
-    removeRuleIds: rules.map((rule) => rule.id),
-  })
+  // await chrome.declarativeNetRequest.updateDynamicRules({
+  //   removeRuleIds: rules.map((rule) => rule.id),
+  // })
 }
 
 export async function addDynamicRule(rule: string): Promise<DynamicRule> {

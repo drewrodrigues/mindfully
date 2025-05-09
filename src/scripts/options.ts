@@ -35,7 +35,6 @@ websiteAdditionForm.addEventListener('submit', async (e) => {
 
 async function renderRuleMatchers() {
   const savedRules = await getSavedRules()
-  // * we'll sync up dynamic rules in the background and use the saved rules as the source of truth
   const elementsToRender = []
 
   for (const savedRule of savedRules) {
@@ -59,7 +58,7 @@ function RuleBubble(rule: ISavedRule) {
     DeleteButton({
       onClick: async () => {
         await deleteSavedRuleByMatcher(rule.matcher)
-        await deleteDynamicsRule(rule.matcher)
+        // await deleteDynamicsRule(rule.matcher)
         renderRuleMatchers()
       },
     })
@@ -71,7 +70,7 @@ function RuleBubble(rule: ISavedRule) {
       onToggle: async () => {
         await updateSavedRule({ ...rule, enabled: !rule.enabled })
         if (rule.enabled) {
-          await deleteDynamicsRule(rule.matcher)
+          // await deleteDynamicsRule(rule.matcher)
         } else {
           await addDynamicRule(rule.matcher)
         }
