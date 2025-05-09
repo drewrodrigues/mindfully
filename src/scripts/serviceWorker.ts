@@ -1,27 +1,5 @@
 import { goToMindfulnessCheckPage, goToOptionsPage } from './utils/navigation'
-
-// ! Right now we're using dynamic rules and cannot determine the actual source
-// ! See if there's a method to not using DRs with manifest version
-
-// addErrorBoundary() // TODO: may need to fix this. Not sure why it can't reference the window
-// ;(async () => {
-//   try {
-//     const savedRules = await getSavedRules()
-//     const dynamicRules = await getDynamicRules()
-
-//     // If there are any dynamic rules still in memory, we'll clean them up
-//     if (dynamicRules.length) {
-//       await deleteDynamicsRules(dynamicRules)
-//     }
-
-//     // And then sync them up to the saved rules from storage
-//     if (savedRules.length) {
-//       await addDynamicRules(savedRules)
-//     }
-//   } catch (e) {
-//     console.error(e)
-//   }
-// })()
+import { getSavedRules } from './utils/rules'
 
 console.log('service worker registered')
 
@@ -33,8 +11,20 @@ chrome.action.onClicked.addListener(() => {
  * We do this because we can't use `chrome.runtime.getURL` in content scripts
  */
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  goToMindfulnessCheckPage(sender.tab.url)
-  console.log(request, sender, sendResponse)
-  console.log(sender.tab.url)
-  sendResponse('response back')
+  console.log('chrome.runtime.onMessage.addListener')
+  console.log(request)
+  if (request.message === 'goToMindfulnessCheckPage') {
+    console.log('Going to mindfulness page')
+    goToMindfulnessCheckPage(request.options.returnUrl, request.options.ruleHit)
+  }
+})
+
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  console.log('Tab updated', { tabId, changeInfo, tab })
+
+  const rules = await getSavedRules()
+  for (const rule of rules) {
+    if (tab.url.includes(rule.matcher))
+      goToMindfulnessCheckPage(tab.url, rule.matcher)
+  }
 })

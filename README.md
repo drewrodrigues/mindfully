@@ -37,3 +37,7 @@ In Blocky, we're injecting through content_scripts and here we're redirecting to
 ## Changes
 
 Actually, we should inject a script on page load that checks the URL of the page. If the URL matches a rule, then we redirect to the extensions page.
+
+## Notes
+
+We're using the service worker to listen for tab updates. It then checks the to see if any rules match, and if so redirects to the mindfulness page. Using content scripts didn't seem to be a good approach and took a while for the script to be laoded in. The service worker is registered immediately and is always listening (👀).
