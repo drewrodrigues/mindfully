@@ -25,8 +25,8 @@ export async function getSavedRules(): Promise<ISavedRule[]> {
   return results.rules
 }
 
-// Idea: can abstract out the below 3 functions, to a function with a callback
-// add that callback gets all rules and then returns how it wants it updated
+// ? Idea: can abstract out the below 3 functions, to a function with a callback
+// ? add that callback gets all rules and then returns how it wants it updated
 
 export async function saveSavedRule(rule: string): Promise<ISavedRule> {
   const existingSavedRules = await getSavedRules()

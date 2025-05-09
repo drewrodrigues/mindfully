@@ -16,6 +16,12 @@
       "matches": ["https://*/*"]
     }
   ],
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["dist/ruleChecker.js"]
+    }
+  ],
   "icons": {
     "16": "src/assets/mindfully.png",
     "32": "src/assets/mindfully.png",
@@ -31,7 +37,8 @@
     "unlimitedStorage"
   ],
   "background": {
-    "service_worker": "dist/serviceWorker.js"
+    "service_worker": "dist/serviceWorker.js",
+    "type": "module"
   },
   "host_permissions": ["*://*/*"],
   "options_page": "src/views/options.html"

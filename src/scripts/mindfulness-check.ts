@@ -1,9 +1,9 @@
-import { INote } from './helpers/notes'
+import { INote } from './utils/notes'
 
-import { getElement } from './helpers/elements'
-import { goToOptionsPage, goToResistedPage } from './helpers/navigation'
-import { deleteNote, getNotes, saveNote } from './helpers/notes'
-import { addErrorBoundary } from './helpers/addErrorBoundary'
+import { getElement } from './utils/elements'
+import { goToOptionsPage, goToResistedPage } from './utils/navigation'
+import { deleteNote, getNotes, saveNote } from './utils/notes'
+import { addErrorBoundary } from './utils/addErrorBoundary'
 
 function onClickResist(e: Event) {
   e.preventDefault()

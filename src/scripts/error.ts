@@ -2,7 +2,7 @@
 // Parse error message from search string in redirect and show it in the page
 // -----------------------------------------------------------------------------
 
-import { getElement } from './helpers/elements'
+import { getElement } from './utils/elements'
 
 const searchParams = new URLSearchParams(window.location.search)
 const errorMessage = searchParams.get('errorMessage')

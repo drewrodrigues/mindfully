@@ -6,6 +6,12 @@
 // dynamic rules. Thus, we have to keep the 2 in sync.
 // -----------------------------------------------------------------------------
 
+/*
+
+! Change app entry to not rely on dynamic rules here
+
+*/
+
 import { ISavedRule } from './rules'
 
 export type DynamicRule = chrome.declarativeNetRequest.Rule

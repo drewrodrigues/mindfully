@@ -1,15 +1,15 @@
-import { addErrorBoundary } from './helpers/addErrorBoundary'
-import { addDynamicRule, deleteDynamicsRule } from './helpers/dynamicRule'
-import { createElement, getElement } from './helpers/elements'
-import { goToErrorPage } from './helpers/navigation'
+import { addErrorBoundary } from './utils/addErrorBoundary'
+import { addDynamicRule, deleteDynamicsRule } from './utils/dynamicRule'
+import { createElement, getElement } from './utils/elements'
+import { goToErrorPage } from './utils/navigation'
 import {
   ISavedRule,
   deleteSavedRuleByMatcher,
   getSavedRules,
   updateSavedRule,
-} from './helpers/rules'
+} from './utils/rules'
 
-const { saveSavedRule } = require('./helpers/rules')
+const { saveSavedRule } = require('./utils/rules')
 
 const WEBSITE_MATCHER = 'website-matcher'
 
@@ -28,7 +28,7 @@ websiteAdditionForm.addEventListener('submit', async (e) => {
     .toLocaleLowerCase()
   const savedRule = await saveSavedRule(ruleMatcher)
 
-  await addDynamicRule(ruleMatcher)
+  // await addDynamicRule(ruleMatcher) // ! we don't need this anymore
   websiteContainer.prepend(RuleBubble(savedRule))
   websiteMatcherInput.value = ''
 })

@@ -6,13 +6,13 @@ module.exports = {
     mindfulnessCheck: './src/scripts/mindfulness-check.ts',
     options: './src/scripts/options.ts',
     resisted: './src/scripts/resisted.ts',
+    ruleChecker: './src/scripts/ruleChecker.ts',
     serviceWorker: './src/scripts/serviceWorker.ts',
   },
   output: {
     filename: '[name].js',
     path: __dirname + '/dist',
   },
-  // typescript
   module: {
     rules: [
       {

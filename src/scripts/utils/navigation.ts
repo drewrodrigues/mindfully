@@ -1,3 +1,13 @@
+export function goToMindfulnessCheckPage(hitRule: string) {
+  // TODO: pass a param of where the window was so we can display and log it
+  const resistedUrl = chrome.runtime.getURL(
+    './src/views/mindfulness-check.html'
+  )
+  chrome.tabs.update({
+    url: `${resistedUrl}?testingQueryParam`,
+  })
+}
+
 export function goToOptionsPage() {
   chrome.runtime.openOptionsPage()
 }
