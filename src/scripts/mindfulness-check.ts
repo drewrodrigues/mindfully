@@ -100,7 +100,7 @@ const QUOTE = getElement('quote')
 OPTIONS_BUTTON.addEventListener('click', onOptionsPageClick)
 RESIST_BUTTON.addEventListener('click', onClickResist)
 
-let timeLeft = 15
+let timeLeft = 30
 function countdownButtonTick(interval?: NodeJS.Timer) {
   if (timeLeft === 0) {
     // TODO: @drew -- use ruleHit from query param
