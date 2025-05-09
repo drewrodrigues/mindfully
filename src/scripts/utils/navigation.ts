@@ -1,13 +1,16 @@
-export function goToMindfulnessCheckPage(returnUrl: string, ruleHit: string) {
+export async function goToMindfulnessCheckPage(
+  returnUrl: string,
+  ruleHit: string
+) {
   console.log({ returnUrl, ruleHit })
   const resistedUrl = chrome.runtime.getURL(
     './src/views/mindfulness-check.html'
   )
   if (!chrome.tabs) {
     // * Running from content Script
-    chrome.runtime.sendMessage({ url: resistedUrl })
+    await chrome.runtime.sendMessage({ url: resistedUrl })
   } else {
-    chrome.tabs.update({
+    await chrome.tabs.update({
       url: `${resistedUrl}?testingQueryParam`,
     })
   }

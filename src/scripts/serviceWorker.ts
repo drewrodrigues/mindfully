@@ -28,3 +28,20 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
       goToMindfulnessCheckPage(tab.url, rule.matcher)
   }
 })
+
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  console.log('activated', { activeInfo })
+
+  const tab = await chrome.tabs.get(activeInfo.tabId)
+  const rules = await getSavedRules()
+  console.log({ tab })
+
+  for (const rule of rules) {
+    if (tab.url.includes(rule.matcher))
+      // Without the setTimeout, we hit an error `Uncaught (in promise) Error: Tabs cannot be edited right now (user may be dragging a tab).`
+      // TODO: make this more robust with some retries at 50ms
+      setTimeout(() => {
+        goToMindfulnessCheckPage(tab.url, rule.matcher)
+      }, 100)
+  }
+})
