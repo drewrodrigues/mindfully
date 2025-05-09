@@ -25,6 +25,7 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
 })
 
 async function checkForRuleMatch(tabUrl: string): Promise<string | null> {
+  if (tabUrl.startsWith('chrome')) return
   const rules = await getSavedRules()
   for (const rule of rules) {
     if (tabUrl.toLocaleLowerCase().includes(rule.matcher.toLocaleLowerCase())) {

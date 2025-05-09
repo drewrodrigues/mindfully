@@ -6,6 +6,7 @@ export type ElementSelector =
   | 'noteInput'
   | 'noteContainer'
   | 'resistButton'
+  | 'returnButton'
   | 'optionsButton'
   | 'quote'
   | 'websiteMatcherInput'

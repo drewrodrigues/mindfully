@@ -5,10 +5,14 @@ import { goToOptionsPage, goToResistedPage } from './utils/navigation'
 import { deleteNote, getNotes, saveNote } from './utils/notes'
 import { addErrorBoundary } from './utils/addErrorBoundary'
 
+const params = new URLSearchParams(window.location.search)
+const ruleHit = params.get('ruleHit')
+const returnUrl = params.get('returnUrl')
+
 function onClickResist(e: Event) {
   e.preventDefault()
   // If there's a note, we'll save it
-  saveNote((NOTE_INPUT as HTMLInputElement).value)
+  saveNote((NOTE_INPUT as HTMLInputElement).value, ruleHit)
   goToResistedPage()
 }
 
@@ -48,14 +52,26 @@ function Note(note: INote) {
   const indicator = document.createElement('div')
   indicator.classList.add('note-indicator')
   footerElement.appendChild(indicator)
+
+  // Content container
+  const contentContainer = document.createElement('section')
+  contentContainer.classList.add('content-container')
+  // - Note Rule hit
+  const ruleHitElement = document.createElement('p')
+  ruleHitElement.textContent = note.ruleHit
+  ruleHitElement.classList.add('rule-hit')
+  contentContainer.appendChild(ruleHitElement)
+  // - Note Content
   const contentElement = document.createElement('p')
   contentElement.textContent = note.content
+  contentElement.classList.add('note-content')
+  contentContainer.appendChild(contentElement)
+
+  // Footer
   const time = document.createElement('span')
   time.textContent = note.date.toLocaleString()
   time.classList.add('note-time')
-  if (note.content) {
-    noteElement.appendChild(contentElement)
-  }
+  noteElement.appendChild(contentContainer)
   footerElement.appendChild(time)
   noteElement.appendChild(footerElement)
 
@@ -75,6 +91,7 @@ function Note(note: INote) {
 addErrorBoundary()
 
 const RESIST_BUTTON = getElement('resistButton')
+const RETURN_BUTTON = getElement('returnButton')
 const NOTE_INPUT = getElement('noteInput')
 const OPTIONS_BUTTON = getElement('optionsButton')
 const NOTE_CONTAINER = getElement('noteContainer')
@@ -82,6 +99,27 @@ const QUOTE = getElement('quote')
 
 OPTIONS_BUTTON.addEventListener('click', onOptionsPageClick)
 RESIST_BUTTON.addEventListener('click', onClickResist)
+
+let timeLeft = 15
+function countdownButtonTick(interval?: NodeJS.Timer) {
+  if (timeLeft === 0) {
+    // TODO: @drew -- use ruleHit from query param
+    RETURN_BUTTON.textContent = 'Return to Page'
+    RETURN_BUTTON.setAttribute('disabled', 'false')
+    RETURN_BUTTON.classList.add('button-green')
+    RETURN_BUTTON.classList.remove('button--disabled')
+    RETURN_BUTTON.setAttribute('href', returnUrl)
+    clearInterval(interval)
+    // ? hmm -- do we want to disable the rule for a short period of time?
+    // ? what are the options? Because the rule will still be enabled...
+    // ? We can 'bless' the current tab to allow it to bypass the rule now
+  } else {
+    RETURN_BUTTON.textContent = `Can return to page in ${timeLeft}...`
+    timeLeft--
+  }
+}
+countdownButtonTick(null)
+const interval = setInterval(() => countdownButtonTick(interval), 1_000)
 
 const QUOTES = [
   'With self-discipline most anything is possible.',

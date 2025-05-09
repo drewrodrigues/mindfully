@@ -28,8 +28,12 @@ body {
   font-size: 16px;
   cursor: pointer;
   height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 1;
   margin: 0 10px;
+  text-decoration: none;
 }
 
 .box-shadow--hover {
@@ -53,4 +57,9 @@ body {
   color: white;
   font-weight: 700;
   width: 100%;
+}
+
+.button--disabled {
+  cursor: not-allowed;
+  background: var(--gray-light);
 }

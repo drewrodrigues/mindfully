@@ -18,6 +18,7 @@ export interface INote {
   id: string
   content: string
   date: string
+  ruleHit: string
 }
 
 // ? Is chrome storage scoped to each plugin?
@@ -36,13 +37,18 @@ export async function getNotes(): Promise<INote[]> {
   return notes
 }
 
-export async function saveNote(content: string) {
+export async function saveNote(content: string, ruleHit: string) {
   const notes = (await getNotes()).map((note) => ({
     ...note,
     date: new Date(note.date).toJSON(),
   }))
   const updatedNotes: object[] = notes ? notes : []
-  updatedNotes.push({ content, date: new Date().toJSON(), id: uuidv4() })
+  updatedNotes.push({
+    content,
+    date: new Date().toJSON(),
+    id: uuidv4(),
+    ruleHit,
+  })
   console.log({ updatedNotes })
   try {
     await chrome.storage.sync.set({
