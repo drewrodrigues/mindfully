@@ -1,18 +1,23 @@
+import { log } from './utils/logger'
 import { goToMindfulnessCheckPage, goToOptionsPage } from './utils/navigation'
-import { getSavedRules } from './utils/rules'
+import { checkForRuleMatch } from './utils/rules'
 
-console.log('service worker registered')
+log('service worker registered')
 
 chrome.action.onClicked.addListener(() => {
   goToOptionsPage()
 })
 
+// Occurs when changing a tab
 chrome.tabs.onUpdated.addListener(async (_tabId, _changeInfo, tab) => {
+  log('onUpdated')
   const ruleMatcher = await checkForRuleMatch(tab.url)
   if (ruleMatcher) goToMindfulnessCheckPage(tab.url, ruleMatcher)
 })
 
+// Occurs when re-opening a tab
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  log('onActivated')
   const tab = await chrome.tabs.get(activeInfo.tabId)
   const ruleMatcher = await checkForRuleMatch(tab.url)
   if (ruleMatcher) {
@@ -24,13 +29,8 @@ chrome.tabs.onActivated.addListener(async (activeInfo) => {
   }
 })
 
-async function checkForRuleMatch(tabUrl: string): Promise<string | null> {
-  if (tabUrl.startsWith('chrome')) return
-  const rules = await getSavedRules()
-  for (const rule of rules) {
-    if (tabUrl.toLocaleLowerCase().includes(rule.matcher.toLocaleLowerCase())) {
-      return rule.matcher
-    }
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (message.message === 'goToMindfulnessCheckPage') {
+    goToMindfulnessCheckPage(sender.tab.url, message.ruleMatch)
   }
-  return null
-}
+})

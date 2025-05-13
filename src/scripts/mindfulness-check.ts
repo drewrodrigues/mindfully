@@ -1,9 +1,10 @@
 import { INote } from './utils/notes'
 
-import { getElement } from './utils/elements'
+import { createElement, getElement } from './utils/elements'
 import { goToOptionsPage, goToResistedPage } from './utils/navigation'
 import { deleteNote, getNotes, saveNote } from './utils/notes'
 import { addErrorBoundary } from './utils/addErrorBoundary'
+import { getRuleByMatcher, updateRule } from './utils/rules'
 
 const params = new URLSearchParams(window.location.search)
 const ruleHit = params.get('ruleHit')
@@ -45,39 +46,41 @@ async function renderNotesFromStorage() {
 }
 
 function Note(note: INote) {
-  const noteElement = document.createElement('div')
-  noteElement.classList.add('note')
+  const noteElement = createElement('div', { className: 'note' })
 
   const footerElement = document.createElement('footer')
-  const indicator = document.createElement('div')
-  indicator.classList.add('note-indicator')
+  const indicator = createElement('div', { className: 'note-indicator' })
   footerElement.appendChild(indicator)
 
   // Content container
-  const contentContainer = document.createElement('section')
-  contentContainer.classList.add('content-container')
+  const contentContainer = createElement('section', {
+    className: 'content-container',
+  })
+  // - Note Content
+  const contentElement = createElement('p', {
+    textContent: note.content,
+    className: 'note-content',
+  })
+  contentContainer.appendChild(contentElement)
+
+  // Footer
+  const time = createElement('span', {
+    textContent: note.date.toLocaleString(),
+    className: 'note-time',
+  })
+  noteElement.appendChild(contentContainer)
+  footerElement.appendChild(time)
   // - Note Rule hit
   const ruleHitElement = document.createElement('p')
   ruleHitElement.textContent = note.ruleHit
   ruleHitElement.classList.add('rule-hit')
-  contentContainer.appendChild(ruleHitElement)
-  // - Note Content
-  const contentElement = document.createElement('p')
-  contentElement.textContent = note.content
-  contentElement.classList.add('note-content')
-  contentContainer.appendChild(contentElement)
-
-  // Footer
-  const time = document.createElement('span')
-  time.textContent = note.date.toLocaleString()
-  time.classList.add('note-time')
-  noteElement.appendChild(contentContainer)
-  footerElement.appendChild(time)
+  footerElement.appendChild(ruleHitElement)
   noteElement.appendChild(footerElement)
 
-  const deleteElement = document.createElement('button')
-  deleteElement.classList.add('note-delete')
-  deleteElement.textContent = 'X'
+  const deleteElement = createElement('button', {
+    className: 'note-delete',
+    textContent: 'X',
+  })
   deleteElement.addEventListener('click', async (e) => {
     e.preventDefault()
     await deleteNote(note.id)
@@ -91,35 +94,47 @@ function Note(note: INote) {
 addErrorBoundary()
 
 const RESIST_BUTTON = getElement('resistButton')
-const RETURN_BUTTON = getElement('returnButton')
+const DISMISS_BUTTON = getElement('dismissButton')
 const NOTE_INPUT = getElement('noteInput')
 const OPTIONS_BUTTON = getElement('optionsButton')
 const NOTE_CONTAINER = getElement('noteContainer')
 const QUOTE = getElement('quote')
+const RULE_HIT = getElement('ruleHit')
 
 OPTIONS_BUTTON.addEventListener('click', onOptionsPageClick)
 RESIST_BUTTON.addEventListener('click', onClickResist)
+NOTE_INPUT.addEventListener('keyup', updateDismiss)
+RULE_HIT.textContent = ruleHit
 
-let timeLeft = 30
-function countdownButtonTick(interval?: NodeJS.Timer) {
-  if (timeLeft === 0) {
-    // TODO: @drew -- use ruleHit from query param
-    RETURN_BUTTON.textContent = 'Return to Page'
-    RETURN_BUTTON.setAttribute('disabled', 'false')
-    RETURN_BUTTON.classList.add('button-green')
-    RETURN_BUTTON.classList.remove('button--disabled')
-    RETURN_BUTTON.setAttribute('href', returnUrl)
-    clearInterval(interval)
-    // ? hmm -- do we want to disable the rule for a short period of time?
-    // ? what are the options? Because the rule will still be enabled...
-    // ? We can 'bless' the current tab to allow it to bypass the rule now
+let dismissMultiplier = 0
+
+function updateDismiss(e: Event) {
+  // @ts-ignore
+  const wordCount = e.target.value
+    .split(' ')
+    .filter((word: string) => !!word).length
+  // dismissMultiplier = Math.floor(wordCount / 25)
+  dismissMultiplier = 1
+  if (dismissMultiplier === 0) {
+    DISMISS_BUTTON.textContent = `${
+      25 - wordCount
+    } more words = 1 minute dismiss`
   } else {
-    RETURN_BUTTON.textContent = `Can return to page in ${timeLeft}...`
-    timeLeft--
+    DISMISS_BUTTON.textContent = `Dismiss for ${dismissMultiplier} minutes...`
+    DISMISS_BUTTON.setAttribute('disabled', 'false')
+    DISMISS_BUTTON.classList.add('button-blue')
+    DISMISS_BUTTON.classList.remove('button--disabled')
+    DISMISS_BUTTON.setAttribute('href', returnUrl)
+    DISMISS_BUTTON.addEventListener('click', async () => {
+      // TODO: dismiss rule for n amount of time
+      const rule = await getRuleByMatcher(ruleHit)
+      updateRule({
+        ...rule,
+        dismissedUntil: Date.now() + 1_000 * 60 * dismissMultiplier,
+      })
+    })
   }
 }
-countdownButtonTick(null)
-const interval = setInterval(() => countdownButtonTick(interval), 1_000)
 
 const QUOTES = [
   'With self-discipline most anything is possible.',

@@ -1,8 +1,10 @@
+import { log } from './logger'
+
 export async function goToMindfulnessCheckPage(
   returnUrl: string,
   ruleHit: string
 ) {
-  console.log({ returnUrl, ruleHit })
+  log('goToMindfulnessCheckPage()')
   const resistedUrl = chrome.runtime.getURL(
     './src/views/mindfulness-check.html'
   )

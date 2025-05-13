@@ -1,15 +1,12 @@
 import { addErrorBoundary } from './utils/addErrorBoundary'
-import { addDynamicRule, deleteDynamicsRule } from './utils/dynamicRule'
 import { createElement, getElement } from './utils/elements'
-import { goToErrorPage } from './utils/navigation'
 import {
-  ISavedRule,
-  deleteSavedRuleByMatcher,
+  IRule,
+  deleteRuleByMatcher,
   getSavedRules,
-  updateSavedRule,
+  saveRule,
+  updateRule,
 } from './utils/rules'
-
-const { saveSavedRule } = require('./utils/rules')
 
 const WEBSITE_MATCHER = 'website-matcher'
 
@@ -26,9 +23,8 @@ websiteAdditionForm.addEventListener('submit', async (e) => {
     .get(WEBSITE_MATCHER)
     .toString()
     .toLocaleLowerCase()
-  const savedRule = await saveSavedRule(ruleMatcher)
+  const savedRule = await saveRule(ruleMatcher)
 
-  // await addDynamicRule(ruleMatcher) // ! we don't need this anymore
   websiteContainer.prepend(RuleBubble(savedRule))
   websiteMatcherInput.value = ''
 })
@@ -45,7 +41,7 @@ async function renderRuleMatchers() {
   websiteContainer.append(...elementsToRender)
 }
 
-function RuleBubble(rule: ISavedRule) {
+function RuleBubble(rule: IRule) {
   const ruleElement = createElement('div', {
     textContent: rule.matcher,
     className: 'bubble',
@@ -57,8 +53,7 @@ function RuleBubble(rule: ISavedRule) {
   aside.appendChild(
     DeleteButton({
       onClick: async () => {
-        await deleteSavedRuleByMatcher(rule.matcher)
-        // await deleteDynamicsRule(rule.matcher)
+        await deleteRuleByMatcher(rule.matcher)
         renderRuleMatchers()
       },
     })
@@ -68,12 +63,7 @@ function RuleBubble(rule: ISavedRule) {
     ToggleRule({
       enabled: rule.enabled,
       onToggle: async () => {
-        await updateSavedRule({ ...rule, enabled: !rule.enabled })
-        if (rule.enabled) {
-          // await deleteDynamicsRule(rule.matcher)
-        } else {
-          await addDynamicRule(rule.matcher)
-        }
+        await updateRule({ ...rule, enabled: !rule.enabled })
         renderRuleMatchers()
       },
     })

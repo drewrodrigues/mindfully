@@ -2,7 +2,7 @@
  * info log when in dev, otherwise supress log
  */
 export function log(...params: any[]) {
-  console.info(...params)
+  console.info(`[Mindfully]`, ...params)
 }
 
 /**
