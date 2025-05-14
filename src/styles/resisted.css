@@ -1,9 +1,4 @@
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-}
+/* TODO: re-add rules to not be general */
 
 canvas {
   width: 100%;
@@ -11,10 +6,4 @@ canvas {
   top: 0;
   left: 0;
   height: 100%;
-}
-
-h1 {
-  background: linear-gradient(#ccff3a, #61ff00);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }

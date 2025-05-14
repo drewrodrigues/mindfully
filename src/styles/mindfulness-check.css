@@ -78,16 +78,17 @@
   font-size: 14px;
   padding: 10px 15px;
   cursor: pointer;
-  background: rgba(0, 0, 0, 0.25);
-  color: white;
-  display: flex;
-  align-items: center;
-  transition: background 250ms;
-  border-radius: var(--border-radius-large);
+  transition: box-shadow 250ms, transform 250ms;
+
+  background: white;
+  color: #777;
+  border-radius: 10px;
+  box-shadow: 0 3px rgba(0, 0, 0, 0.15);
 }
 
 .options-button:hover {
-  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px rgba(0, 0, 0, 0.15);
+  transform: translateY(1px);
 }
 
 .options-button img {
@@ -151,6 +152,10 @@
   border-radius: 50%;
   margin-right: 10px;
   flex-shrink: 0;
+}
+
+.note-indicator--dimiss {
+  background: var(--gradient-orange);
 }
 
 .content-container {

@@ -29,6 +29,8 @@
 - [ ] We may be able to get rid of the background storage worker once we migrate over from dynamic rules
 - [ ] Tree shaking isn't happening. Update webpack config to make sure it is. Look at ruleCheck dist w/ navigation.ts
 - [ ] Send message to service worker from content script to redirect to page w/ URL
+- [ ] For every 10-25 words written, you get 1 minute of the rule dismissed
+- [ ] Check on bug with Amazon where rule is hit. Surface the rule hit on the mindfulness check page. It's getting hit but I can't find out why... Might be a dynamic rule... -- I think it was a dynamic rule that stuck around
 
 ## Context
 

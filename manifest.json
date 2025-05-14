@@ -4,12 +4,12 @@
   "description": "Mindfully not only blocks websites, but gives you space to be mindful about your web usage. It's a soft website blocker, meaning it will let you visit the blocked website after a countdown. Or you can be write a note and resist.",
   "version": "0.1",
   "action": {
-    "default_icon": "src/assets/mindfully.png"
+    "default_icon": "assets/mindfully.png"
   },
   "web_accessible_resources": [
     {
       "resources": [
-        "src/views/mindfulness-check.html",
+        "mindfulness.html",
         "src/styles/mindfulness-check.css",
         "src/views/resisted.html"
       ],
@@ -19,14 +19,14 @@
   "content_scripts": [
     {
       "matches": ["https://*/*"],
-      "js": ["dist/ruleChecker.js"]
+      "js": ["ruleChecker.js"]
     }
   ],
   "icons": {
-    "16": "src/assets/mindfully.png",
-    "32": "src/assets/mindfully.png",
-    "48": "src/assets/mindfully.png",
-    "128": "src/assets/mindfully.png"
+    "16": "assets/mindfully.png",
+    "32": "assets/mindfully.png",
+    "48": "assets/mindfully.png",
+    "128": "assets/mindfully.png"
   },
   "permissions": [
     "activeTab",
@@ -37,9 +37,9 @@
     "unlimitedStorage"
   ],
   "background": {
-    "service_worker": "dist/serviceWorker.js",
+    "service_worker": "serviceWorker.js",
     "type": "module"
   },
   "host_permissions": ["*://*/*"],
-  "options_page": "src/views/options.html"
+  "options_page": "options.html"
 }

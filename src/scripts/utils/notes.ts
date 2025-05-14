@@ -19,6 +19,7 @@ export interface INote {
   content: string
   date: string
   ruleHit: string
+  type?: 'resist' | 'dismiss'
 }
 
 // ? Is chrome storage scoped to each plugin?
@@ -37,7 +38,11 @@ export async function getNotes(): Promise<INote[]> {
   return notes
 }
 
-export async function saveNote(content: string, ruleHit: string) {
+export async function saveNote(
+  content: string,
+  ruleHit: string,
+  type: 'resist' | 'dismiss'
+) {
   const notes = (await getNotes()).map((note) => ({
     ...note,
     date: new Date(note.date).toJSON(),
@@ -48,6 +53,7 @@ export async function saveNote(content: string, ruleHit: string) {
     date: new Date().toJSON(),
     id: uuidv4(),
     ruleHit,
+    type,
   })
   console.log({ updatedNotes })
   try {

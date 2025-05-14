@@ -48,6 +48,10 @@ body {
   background: var(--gradient-blue);
 }
 
+.button-orange {
+  background: var(--gradient-orange);
+}
+
 .button-red {
   background: var(--gradient-red);
 }

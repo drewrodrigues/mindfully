@@ -1,45 +1,9 @@
 import { addErrorBoundary } from './utils/addErrorBoundary'
-import { createElement, getElement } from './utils/elements'
-import {
-  IRule,
-  deleteRuleByMatcher,
-  getSavedRules,
-  saveRule,
-  updateRule,
-} from './utils/rules'
+import { createElement } from './utils/elements'
+import { IRule, deleteRuleByMatcher, updateRule } from './utils/rules'
 
-const WEBSITE_MATCHER = 'website-matcher'
-
-const websiteContainer = getElement('websites')
-const websiteAdditionForm = getElement('websiteAdditionForm')
-const websiteMatcherInput = getElement(
-  'websiteMatcherInput'
-) as HTMLInputElement
-
-websiteAdditionForm.addEventListener('submit', async (e) => {
-  e.preventDefault()
-  const formData = new FormData(websiteAdditionForm as HTMLFormElement)
-  const ruleMatcher = formData
-    .get(WEBSITE_MATCHER)
-    .toString()
-    .toLocaleLowerCase()
-  const savedRule = await saveRule(ruleMatcher)
-
-  websiteContainer.prepend(RuleBubble(savedRule))
-  websiteMatcherInput.value = ''
-})
-
-async function renderRuleMatchers() {
-  const savedRules = await getSavedRules()
-  const elementsToRender = []
-
-  for (const savedRule of savedRules) {
-    elementsToRender.unshift(RuleBubble(savedRule))
-  }
-
-  websiteContainer.innerHTML = null
-  websiteContainer.append(...elementsToRender)
-}
+// TODO: new Date(1747169524244).toLocaleTimeString()
+// Re-write really quick with React, vanilla JS is boring
 
 function RuleBubble(rule: IRule) {
   const ruleElement = createElement('div', {
@@ -54,7 +18,6 @@ function RuleBubble(rule: IRule) {
     DeleteButton({
       onClick: async () => {
         await deleteRuleByMatcher(rule.matcher)
-        renderRuleMatchers()
       },
     })
   )
@@ -64,7 +27,6 @@ function RuleBubble(rule: IRule) {
       enabled: rule.enabled,
       onToggle: async () => {
         await updateRule({ ...rule, enabled: !rule.enabled })
-        renderRuleMatchers()
       },
     })
   )
@@ -97,4 +59,3 @@ function DeleteButton({ onClick }: { onClick: () => void }) {
 }
 
 addErrorBoundary()
-renderRuleMatchers()

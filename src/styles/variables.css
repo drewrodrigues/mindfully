@@ -15,7 +15,7 @@
   );
   --gradient-red: linear-gradient(red, #a70000);
   --gradient-blue: linear-gradient(var(--blue-light), var(--blue-primary));
-  --gradient-orange: linear-gradient(orange, darkorange);
+  --gradient-orange: linear-gradient(orange, #f65a00);
   --shadow-primary: 0 4px 4px rgba(0, 0, 0, 0.25);
   --shadow-hover: 0 2px 2px rgba(0, 0, 0, 0.15);
 }

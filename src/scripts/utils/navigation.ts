@@ -5,9 +5,7 @@ export async function goToMindfulnessCheckPage(
   ruleHit: string
 ) {
   log('goToMindfulnessCheckPage()')
-  const resistedUrl = chrome.runtime.getURL(
-    './src/views/mindfulness-check.html'
-  )
+  const resistedUrl = chrome.runtime.getURL('./mindfulness.html')
   // TODO: encode these safer
   await chrome.tabs.update({
     url: `${resistedUrl}?returnUrl=${returnUrl}&ruleHit=${ruleHit}`,
@@ -19,16 +17,14 @@ export function goToOptionsPage() {
 }
 
 export function goToResistedPage() {
-  // TODO: not sure these URLs will work when packaged
-  const resistedUrl = chrome.runtime.getURL('./src/views/resisted.html')
+  const resistedUrl = chrome.runtime.getURL('./resisted.html')
   chrome.tabs.update({
     url: resistedUrl,
   })
 }
 
 export function goToErrorPage(error: Error | string) {
-  // TODO: not sure these URLs will work when packaged
-  const errorUrl = chrome.runtime.getURL('./src/views/error.html')
+  const errorUrl = chrome.runtime.getURL('./error.html')
   const url = new URL(errorUrl)
   url.searchParams.append(
     'errorMessage',
